@@ -23,6 +23,7 @@ body {
   flex-direction: row;
 }
 
+/* Make the navigation pane on mobile/portrait scroll out of view instead of obscuring the viewport */
 @media screen and (max-width: 500px) {
   body {
     display: block;
