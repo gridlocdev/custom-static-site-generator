@@ -2,6 +2,7 @@
 using Markdig;
 using Ganss.XSS;
 using HtmlAgilityPack;
+using System.Text;
 
 try
 {
@@ -73,22 +74,57 @@ foreach (var relativePath in relativePaths)
     var templateDocument = new HtmlDocument();
     templateDocument.Load("./template/template.html");
 
-    var injectElements = new
-    {
-        // sidebar = templateDocument.GetElementbyId("ssg-inject-sidebar-links"),
-        breadcrumbs = templateDocument.GetElementbyId("ssg-inject-breadcrumb-links"),
-        content = templateDocument.GetElementbyId("ssg-inject-content")
-    };
+    // var injectElements = new
+    // {
+    //     // sidebar = templateDocument.GetElementbyId("ssg-inject-sidebar-links"),
+    //     breadcrumbs = templateDocument.GetElementbyId("ssg-inject-breadcrumb-links"),
+    //     content = templateDocument.GetElementbyId("ssg-inject-content")
+    // };
 
     // Build sidebar navigation links
-    var relativePathFilePaths = Directory.GetFiles(input.Directory, "*.md", SearchOption.TopDirectoryOnly);
+    var relativePathFilePaths = Directory.GetFiles(input.Directory!, "*.md", SearchOption.TopDirectoryOnly);
 
-    foreach (var item in relativePathFilePaths)
+    foreach (var file in relativePathFilePaths)
     {
-        System.Console.WriteLine($"File found: {Path.GetFileNameWithoutExtension(item)}");
-        HtmlNode newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(item), ".html")}\">{Path.GetFileNameWithoutExtension(item)}</a></li>");
+        HtmlNode newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\">{Path.GetFileNameWithoutExtension(file)}</a></li>");
         templateDocument.GetElementbyId("ssg-inject-sidebar-links").AppendChild(newSidebarLink);
     }
+
+    // Build the breadcrumb path based on the relative file location
+    int pathIndex = 0;
+    var splitRelativePath = relativePath.Split("/");
+    foreach (var splitPathString in splitRelativePath)
+    {
+        string linkText;
+        string linkHref;
+        HtmlNode newSidebarLink;
+        string defaultDocumentFileName = AppSettings["DefaultDocumentName"] + ".html";
+
+        if (splitPathString == String.Empty)
+        {
+            // Build "Home" link element for the start of the path (empty)
+            linkText = "Home";
+            linkHref = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2)) + defaultDocumentFileName;
+            newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"{linkHref}\">{linkText}</a></li>");
+        }
+        else if (Path.HasExtension(splitPathString))
+        {
+            // Build ending text element with no link for the current file's name
+            linkText = Path.GetFileNameWithoutExtension(splitPathString);
+            newSidebarLink = HtmlNode.CreateNode($"<li>{linkText}</li>");
+        }
+        else
+        {
+            // Build ending breadcrumb with a link to the previous folder
+            linkText = splitPathString;
+            linkHref = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - (pathIndex + 2))) + defaultDocumentFileName;
+            newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"{linkHref}\">{linkText}</a></li>");
+        }
+
+        templateDocument.GetElementbyId("ssg-inject-breadcrumb-links").AppendChild(newSidebarLink);
+        pathIndex++;
+    }
+
 
     //System.Console.WriteLine($"Successfully templated {output.FilePath}");
 
