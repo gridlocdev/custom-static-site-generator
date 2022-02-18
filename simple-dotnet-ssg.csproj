@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
     <PackageReference Include="HtmlSanitizer" Version="7.1.475" />
     <PackageReference Include="Markdig" Version="0.27.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />

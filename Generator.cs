@@ -1,6 +1,7 @@
 ﻿using static System.Configuration.ConfigurationManager;
 using Markdig;
 using Ganss.XSS;
+using HtmlAgilityPack;
 
 try
 {
@@ -41,23 +42,57 @@ var relativePaths = Directory.GetFiles(AppSettings["InputFolder"]!, "*.md", Sear
 // Configure the Markdown render pipeline with all advanced extensions active
 var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 var sanitizer = new HtmlSanitizer();
+// Allow `id` through sanitization to allow for same-document hyperlinks to headers generated with `id` attributes
 sanitizer.AllowedAttributes.Add("id");
 
 foreach (var relativePath in relativePaths)
 {
-    string inputFileName = Path.Join(AppSettings["InputFolder"], relativePath);
-    string outputFileName = Path.ChangeExtension(AppSettings["OutputFolder"] + relativePath, ".html");
+    var input = new
+    {
+        FilePath = Path.Join(AppSettings["InputFolder"], relativePath),
+        Directory = Path.GetDirectoryName(Path.Join(AppSettings["InputFolder"], relativePath)),
+        Content = File.ReadAllText(Path.Join(AppSettings["InputFolder"], relativePath))
+    };
+    var output = new
+    {
+        FilePath = Path.Join(AppSettings["OutputFolder"], Path.ChangeExtension(relativePath, ".html")),
+        Directory = Path.GetDirectoryName(Path.Join(AppSettings["OutputFolder"], relativePath))
+    };
 
-    System.Console.WriteLine($"Building {inputFileName}...");
+    System.Console.WriteLine($"Building {input.FilePath}...");
 
-    string content = File.ReadAllText(inputFileName);
-    string preSanitizedOutput = Markdown.ToHtml(content, pipeline);
-    string sanitizedOutput = sanitizer.Sanitize(preSanitizedOutput);
+    string preSanitizedContent = Markdown.ToHtml(input.Content, pipeline);
+    string sanitizedContent = sanitizer.Sanitize(preSanitizedContent);
 
-    if (!Directory.Exists(Path.GetDirectoryName(outputFileName)))
-        Directory.CreateDirectory(Path.GetDirectoryName(outputFileName)!);
+    if (!Directory.Exists(output.Directory))
+        Directory.CreateDirectory(output.Directory!);
 
-    File.WriteAllText(outputFileName, sanitizedOutput);
 
-    System.Console.WriteLine($"Successfully built {outputFileName}");
+    System.Console.WriteLine($"Templating {output.FilePath}...");
+
+    var templateDocument = new HtmlDocument();
+    templateDocument.Load("./template/template.html");
+
+    var injectElements = new
+    {
+        // sidebar = templateDocument.GetElementbyId("ssg-inject-sidebar-links"),
+        breadcrumbs = templateDocument.GetElementbyId("ssg-inject-breadcrumb-links"),
+        content = templateDocument.GetElementbyId("ssg-inject-content")
+    };
+
+    // Build sidebar navigation links
+    var relativePathFilePaths = Directory.GetFiles(input.Directory, "*.md", SearchOption.TopDirectoryOnly);
+
+    foreach (var item in relativePathFilePaths)
+    {
+        System.Console.WriteLine($"File found: {Path.GetFileNameWithoutExtension(item)}");
+        HtmlNode newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(item), ".html")}\">{Path.GetFileNameWithoutExtension(item)}</a></li>");
+        templateDocument.GetElementbyId("ssg-inject-sidebar-links").AppendChild(newSidebarLink);
+    }
+
+    //System.Console.WriteLine($"Successfully templated {output.FilePath}");
+
+    templateDocument.Save(output.FilePath);
+
+    System.Console.WriteLine($"Successfully built {output.FilePath}");
 }
