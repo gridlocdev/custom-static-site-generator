@@ -41,6 +41,7 @@ var relativePaths = Directory.GetFiles(AppSettings["InputFolder"]!, "*.md", Sear
 // Configure the Markdown render pipeline with all advanced extensions active
 var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 var sanitizer = new HtmlSanitizer();
+sanitizer.AllowedAttributes.Add("id");
 
 foreach (var relativePath in relativePaths)
 {
