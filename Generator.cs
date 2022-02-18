@@ -73,15 +73,10 @@ foreach (var relativePath in relativePaths)
 
     var templateDocument = new HtmlDocument();
     templateDocument.Load("./template/template.html");
+    // Inject sanitized page content
+    templateDocument.GetElementbyId("ssg-inject-content").InnerHtml = sanitizedContent;
 
-    // var injectElements = new
-    // {
-    //     // sidebar = templateDocument.GetElementbyId("ssg-inject-sidebar-links"),
-    //     breadcrumbs = templateDocument.GetElementbyId("ssg-inject-breadcrumb-links"),
-    //     content = templateDocument.GetElementbyId("ssg-inject-content")
-    // };
-
-    // Build sidebar navigation links
+    // Build and inject sidebar navigation links
     var relativePathFilePaths = Directory.GetFiles(input.Directory!, "*.md", SearchOption.TopDirectoryOnly);
 
     foreach (var file in relativePathFilePaths)
@@ -125,8 +120,24 @@ foreach (var relativePath in relativePaths)
         pathIndex++;
     }
 
+    // Copy stylesheet to output folder
+    var stylesheetDestinationPath = output.Directory + "/" + "style.css";
+    var stylesheetSourcePath = "./template/style.css";
 
-    //System.Console.WriteLine($"Successfully templated {output.FilePath}");
+    if (!File.Exists(stylesheetDestinationPath))
+        File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
+    else if (!File.Equals(stylesheetSourcePath, stylesheetDestinationPath))
+    {
+        File.Delete(stylesheetDestinationPath);
+        File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
+    }
+
+    // Inject styles
+    var stylesheetRelativePath = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2)) + "style.css";
+
+    templateDocument.GetElementbyId("ssg-inject-stylesheet").SetAttributeValue("href", stylesheetRelativePath);
+
+    System.Console.WriteLine($"Successfully templated {output.FilePath}");
 
     templateDocument.Save(output.FilePath);
 
