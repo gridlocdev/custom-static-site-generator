@@ -2,7 +2,6 @@
 using Markdig;
 using Ganss.XSS;
 using HtmlAgilityPack;
-using System.Text;
 
 try
 {
@@ -60,19 +59,37 @@ foreach (var relativePath in relativePaths)
         Directory = Path.GetDirectoryName(Path.Join(AppSettings["OutputFolder"], relativePath))
     };
 
-    System.Console.WriteLine($"Building {input.FilePath}...");
+    System.Console.WriteLine($"Building {output.FilePath}...");
 
     string preSanitizedContent = Markdown.ToHtml(input.Content, pipeline);
     string sanitizedContent = sanitizer.Sanitize(preSanitizedContent);
 
+    // Refactor markdown file links to html file links
+    var docContent = new HtmlDocument();
+    docContent.LoadHtml(sanitizedContent);
+
+    foreach (HtmlNode link in docContent.DocumentNode.SelectNodes("//a[@href]"))
+    {
+        string linkValue = link.GetAttributeValue("href", "");
+        if (
+            !String.IsNullOrEmpty(linkValue) &&
+            !linkValue.StartsWith("http://") &&
+            !linkValue.StartsWith("https://") &&
+            linkValue.EndsWith(".md")
+            )
+        {
+            string linkElementBeforeExtensionChange = link.OuterHtml;
+            link.SetAttributeValue("href", Path.ChangeExtension(linkValue, ".html"));
+            sanitizedContent = sanitizedContent.Replace(linkElementBeforeExtensionChange, link.OuterHtml);
+        }
+    }
+
     if (!Directory.Exists(output.Directory))
         Directory.CreateDirectory(output.Directory!);
 
-
-    System.Console.WriteLine($"Templating {output.FilePath}...");
-
     var templateDocument = new HtmlDocument();
     templateDocument.Load("./template/template.html");
+
     // Inject sanitized page content
     templateDocument.GetElementbyId("ssg-inject-content").InnerHtml = sanitizedContent;
 
@@ -137,9 +154,5 @@ foreach (var relativePath in relativePaths)
 
     templateDocument.GetElementbyId("ssg-inject-stylesheet").SetAttributeValue("href", stylesheetRelativePath);
 
-    System.Console.WriteLine($"Successfully templated {output.FilePath}");
-
     templateDocument.Save(output.FilePath);
-
-    System.Console.WriteLine($"Successfully built {output.FilePath}");
 }
