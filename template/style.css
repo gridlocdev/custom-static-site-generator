@@ -47,6 +47,11 @@ a:hover {
   padding: 0.5rem;
 }
 
+.sidebar .sub-header {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 main {
   flex: 6;
   overflow-x: hidden;

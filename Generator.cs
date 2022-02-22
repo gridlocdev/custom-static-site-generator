@@ -93,6 +93,11 @@ foreach (var relativePath in relativePaths)
     // Inject sanitized page content
     templateDocument.GetElementbyId("ssg-inject-content").InnerHtml = sanitizedContent;
 
+    // Build and inject sidebar sub-header representing the current topic
+    var subheaderTitle = Path.GetDirectoryName(relativePath)!.TrimStart('/');
+    subheaderTitle = String.IsNullOrEmpty(subheaderTitle) ? "Home" : subheaderTitle;
+    templateDocument.GetElementbyId("ssg-inject-sidebar-subheader").InnerHtml = subheaderTitle;
+
     // Build and inject sidebar navigation links
     var relativePathFilePaths = Directory.GetFiles(input.Directory!, "*.md", SearchOption.TopDirectoryOnly);
 
