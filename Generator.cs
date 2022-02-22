@@ -98,7 +98,12 @@ foreach (var relativePath in relativePaths)
 
     foreach (var file in relativePathFilePaths)
     {
-        HtmlNode newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\">{Path.GetFileNameWithoutExtension(file)}</a></li>");
+        HtmlNode newSidebarLink;
+        if (Path.GetFileNameWithoutExtension(output.FilePath) == Path.GetFileNameWithoutExtension(file))
+            newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\"><strong>{Path.GetFileNameWithoutExtension(file)}</strong></a></li>");
+        else
+            newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\">{Path.GetFileNameWithoutExtension(file)}</a></li>");
+
         templateDocument.GetElementbyId("ssg-inject-sidebar-links").AppendChild(newSidebarLink);
     }
 
