@@ -74,19 +74,23 @@ foreach (var relativePath in relativePaths)
     var docContent = new HtmlDocument();
     docContent.LoadHtml(sanitizedContent);
 
-    foreach (HtmlNode link in docContent.DocumentNode.SelectNodes("//a[@href]"))
+    var links = docContent.DocumentNode.SelectNodes("//a[@href]");
+    if (links is not null)
     {
-        string linkValue = link.GetAttributeValue("href", "");
-        if (
-            !String.IsNullOrEmpty(linkValue) &&
-            !linkValue.StartsWith("http://") &&
-            !linkValue.StartsWith("https://") &&
-            linkValue.EndsWith(".md")
-            )
+        foreach (HtmlNode link in links)
         {
-            string linkElementBeforeExtensionChange = link.OuterHtml;
-            link.SetAttributeValue("href", Path.ChangeExtension(linkValue, ".html"));
-            sanitizedContent = sanitizedContent.Replace(linkElementBeforeExtensionChange, link.OuterHtml);
+            string linkValue = link.GetAttributeValue("href", "");
+            if (
+                !String.IsNullOrEmpty(linkValue) &&
+                !linkValue.StartsWith("http://") &&
+                !linkValue.StartsWith("https://") &&
+                linkValue.EndsWith(".md")
+                )
+            {
+                string linkElementBeforeExtensionChange = link.OuterHtml;
+                link.SetAttributeValue("href", Path.ChangeExtension(linkValue, ".html"));
+                sanitizedContent = sanitizedContent.Replace(linkElementBeforeExtensionChange, link.OuterHtml);
+            }
         }
     }
 
