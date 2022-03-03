@@ -158,7 +158,7 @@ foreach (var relativePath in relativePaths)
     }
 
     // Copy stylesheet to output folder
-    var stylesheetDestinationPath = output.Directory + "/" + "style.css";
+    var stylesheetDestinationPath = AppSettings["OutputFolder"] + "/" + "style.css";
     var stylesheetSourcePath = "./template/style.css";
 
     if (!File.Exists(stylesheetDestinationPath))
