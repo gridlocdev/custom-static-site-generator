@@ -1,4 +1,4 @@
-﻿using static System.Configuration.ConfigurationManager;
+using static System.Configuration.ConfigurationManager;
 using Markdig;
 using Ganss.XSS;
 using HtmlAgilityPack;
@@ -38,6 +38,12 @@ catch (ArgumentNullException)
 // Collect the relative paths (relative to the input folder) of every file in the input folder
 var relativePaths = Directory.GetFiles(AppSettings["InputFolder"]!, "*.md", SearchOption.AllDirectories)
 .Select(path => path.Remove(0, AppSettings["InputFolder"]!.Length));
+
+// Clear each HTML file in the output folder each run. Not the most elegant solution, but it works.
+System.Console.WriteLine("Clearing output directory...");
+string pattern = "*.html";
+foreach (string file in Directory.GetFiles(AppSettings["OutputFolder"]!, pattern, SearchOption.AllDirectories))
+    File.Delete(file);
 
 // Configure the Markdown render pipeline with all advanced extensions active
 var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
