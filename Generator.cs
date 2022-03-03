@@ -1,11 +1,11 @@
-using static System.Configuration.ConfigurationManager;
+﻿using static System.Configuration.ConfigurationManager;
 using Markdig;
 using Ganss.XSS;
 using HtmlAgilityPack;
 
 try
 {
-    // Validate the file or directory paths exist
+    // Validate the configuration file's input and output directory paths exist
     bool valid = true;
     if (!File.GetAttributes(AppSettings["InputFolder"]!).HasFlag(FileAttributes.Directory))
     {
@@ -35,8 +35,8 @@ catch (ArgumentNullException)
     Environment.Exit(0);
 }
 
-// Collect the relative paths (relative to the input folder) of every file in the input folder
-var relativePaths = Directory.GetFiles(AppSettings["InputFolder"]!, "*.md", SearchOption.AllDirectories)
+// Get a list of the relative paths of all Markdown files in the `input` folder
+var inputRelativePaths = Directory.GetFiles(AppSettings["InputFolder"]!, "*.md", SearchOption.AllDirectories)
 .Select(path => path.Remove(0, AppSettings["InputFolder"]!.Length));
 
 // Clear each HTML file in the output folder each run. Not the most elegant solution, but it works.
@@ -51,7 +51,8 @@ var sanitizer = new HtmlSanitizer();
 // Allow `id` through sanitization to allow for same-document hyperlinks to headers generated with `id` attributes
 sanitizer.AllowedAttributes.Add("id");
 
-foreach (var relativePath in relativePaths)
+// Build each Markdown file into a sanitized and templated HTML file
+foreach (var relativePath in inputRelativePaths)
 {
     var input = new
     {
@@ -70,7 +71,7 @@ foreach (var relativePath in relativePaths)
     string preSanitizedContent = Markdown.ToHtml(input.Content, pipeline);
     string sanitizedContent = sanitizer.Sanitize(preSanitizedContent);
 
-    // Refactor markdown file links to html file links
+    // Refactor Markdown file links (.md) to HTML (.html) file links
     var docContent = new HtmlDocument();
     docContent.LoadHtml(sanitizedContent);
 
@@ -103,14 +104,13 @@ foreach (var relativePath in relativePaths)
     // Inject sanitized page content
     templateDocument.GetElementbyId("ssg-inject-content").InnerHtml = sanitizedContent;
 
-    // Build and inject sidebar sub-header representing the current topic
+    // Build and inject a subheader into the sidebar representing the current topic
     var subheaderTitle = Path.GetDirectoryName(relativePath)!.TrimStart('/');
     subheaderTitle = String.IsNullOrEmpty(subheaderTitle) ? "Home" : subheaderTitle;
     templateDocument.GetElementbyId("ssg-inject-sidebar-subheader").InnerHtml = subheaderTitle;
 
     // Build and inject sidebar navigation links
     var relativePathFilePaths = Directory.GetFiles(input.Directory!, "*.md", SearchOption.TopDirectoryOnly);
-
     foreach (var file in relativePathFilePaths)
     {
         HtmlNode newSidebarLink;
