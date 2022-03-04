@@ -1,0 +1,3 @@
+# Excludes files in these two folders from being counted in the Github page's 'Languages' count provided by the Linguist library
+input/* linguist-vendored
+wwwroot/* linguist-vendored
