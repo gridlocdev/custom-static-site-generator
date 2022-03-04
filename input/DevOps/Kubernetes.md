@@ -90,6 +90,6 @@ For the purposes of my notes, I'll be taking a look at Kubernetes as it is the i
 - **_Clusters_** are groups of physical servers or VMs (Virtual Machines), the computer infrastructure that the containers are running on.
 - **_Pods_** are groups of deployed containers, which can be distributed among any number of servers in a _cluster_.
 - **_Kubernetes_** is a container orchestration framework created by Google.
-- **_MiniKube*** is a tool created by Google to create Kubernetes clusters on a local machine for testing and development.
-- **_Control Plane*** is a process that coordinates collaborative actions on or between all of the nodes in a Kubernetes cluster.
-- **_Nodes*** are each individual worker machine in a _cluster_
+- **_MiniKube_** is a tool created by Google to create Kubernetes clusters on a local machine for testing and development.
+- **_Control Plane_** is a process that coordinates collaborative actions on or between all of the nodes in a Kubernetes cluster.
+- **_Nodes_** are each individual worker machine in a _cluster_
