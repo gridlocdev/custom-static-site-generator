@@ -6,7 +6,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: whitesmoke;
-    --text-color-accent: rgb(190, 190, 190);
+    --text-color-accent: rgb(255, 174, 52);
     --bg-color-primary: #191919;
     --bg-color-secondary: rgb(33, 37, 41);
     --bg-color-accent: rgb(42, 48, 53);
@@ -101,4 +101,11 @@ pre {
 
 code {
   line-height: 1.5;
+}
+
+code:not(pre code) {
+  border-radius: 3px;
+  background-color: var(--bg-color-accent);
+  padding: 2px 5px;
+  color: var(--text-color-accent);
 }
