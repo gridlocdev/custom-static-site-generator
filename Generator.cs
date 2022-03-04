@@ -177,3 +177,5 @@ foreach (var relativePath in inputRelativePaths)
 
     templateDocument.Save(output.FilePath);
 }
+
+File.Copy("./azure/staticwebapp.config.json", Path.Join(AppSettings["OutputFolder"], "staticwebapp.config.json"));
