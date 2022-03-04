@@ -169,10 +169,11 @@ foreach (var relativePath in inputRelativePaths)
         File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
     }
 
-    // Inject styles
-    var stylesheetRelativePath = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2)) + "style.css";
+    // Inject styles and favicon
+    var outputRelativePathToRoot = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2));
 
-    templateDocument.GetElementbyId("ssg-inject-stylesheet").SetAttributeValue("href", stylesheetRelativePath);
+    templateDocument.GetElementbyId("ssg-inject-stylesheet").SetAttributeValue("href", outputRelativePathToRoot + "style.css");
+    templateDocument.GetElementbyId("ssg-inject-favicon").SetAttributeValue("href", outputRelativePathToRoot + "gridlocdev-logo.svg");
 
     templateDocument.Save(output.FilePath);
 }
