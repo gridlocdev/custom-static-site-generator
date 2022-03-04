@@ -5,10 +5,11 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --sidebar-bg-color: rgb(33, 37, 41);
-
-    --content-bg-color: #191919;
-    --content-text-color: whitesmoke;
+    --text-color: whitesmoke;
+    --text-color-accent: rgb(190, 190, 190);
+    --bg-color-primary: #191919;
+    --bg-color-secondary: rgb(33, 37, 41);
+    --bg-color-accent: rgb(42, 48, 53);
   }
 }
 
@@ -16,8 +17,8 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: var(--content-bg-color);
-  color: var(--content-text-color);
+  background-color: var(--bg-color-primary);
+  color: var(--text-color);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   flex-direction: row;
@@ -41,7 +42,7 @@ a:hover {
 
 .sidebar {
   flex: 1;
-  background-color: var(--sidebar-bg-color);
+  background-color: var(--bg-color-secondary);
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
@@ -73,6 +74,31 @@ ul.breadcrumb li {
 /* Add a slash symbol (/) before/behind each list item */
 ul.breadcrumb li + li:before {
   padding: 8px;
-  color: var(--content-text-color);
+  color: var(--text-color);
   content: "/\00a0";
+}
+
+table,
+th,
+td {
+  border: thin solid dimgray;
+  border-collapse: collapse;
+  padding: 0.5em;
+}
+
+blockquote {
+  background-color: var(--bg-color-secondary); 
+  font-style: italic;
+  padding: 0.5em;
+  border-left: 0.75em solid var(--bg-color-accent);
+}
+
+pre {
+  font-size: larger;
+  padding: 1em;
+  background-color: var(--bg-color-secondary);
+}
+
+code {
+  line-height: 1.5;
 }
