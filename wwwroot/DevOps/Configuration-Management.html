@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">DevOps</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Scripting.html">Scripting</a></li><li><a href="./Infrastructure-Provisioning.html">Infrastructure-Provisioning</a></li><li><a href="./Service-Meshes.html">Service-Meshes</a></li><li><a href="./YAML.html">YAML</a></li><li><a href="./Kubernetes.html">Kubernetes</a></li><li><a href="./Cloud-Providers.html">Cloud-Providers</a></li><li><a href="./CICD.html">CICD</a></li><li><a href="./Configuration-Management.html"><strong>Configuration-Management</strong></a></li><li><a href="./Index.html">Index</a></li><li><a href="./Containers.html">Containers</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">DevOps</a></li><li>Configuration-Management</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="configuration-management">Configuration Management</h1>
+<p>Managing the infrastructure for an application often means performing repetitive or easily automate-able tasks on the environments over time. Additionally, often times administrators need to do the same task or series of tasks manually for multiple servers.</p>
+<p><strong>Configuration Management</strong> is the process of using automation and automated tasks to manage infrastructure more easily. To accomplish this, there are a few popular options for tools to use:</p>
+<ul>
+<li>Ansible</li>
+<li>Jenkins</li>
+<li>Chef</li>
+<li>Puppet</li>
+</ul>
+<h2 id="repetitive-tasks">Repetitive Tasks</h2>
+<p>These types of tasks can be things like:</p>
+<ul>
+<li>Updating the installed software to a specific version</li>
+<li>Managing user/group permissions on a physical or virtual server</li>
+<li>Starting/stopping individual services</li>
+<li>Creating backups</li>
+<li>Rebooting</li>
+</ul>
+<h2 id="how-management-tooling-works">How management tooling works</h2>
+<p>Depending on the tool you use, typically you do one of the following tasks:</p>
+<ul>
+<li>Configure your set of servers / resources using a language like YAML</li>
+<li>Configure one or more tasks using either a template language like YAML or using a programming language that the target server has installed like Bash, PowerShell, Python, or Ruby</li>
+<li>Using the tool, use the appropriate GUI or CLI button/command to run the tasks</li>
+</ul>
+<h3 id="agentless-vs-agents">Agentless vs Agents</h3>
+<p>When choosing a tool and getting started, it's important to note if the tool requires using an <strong>Agent</strong>.</p>
+<p>To execute tasks on the machine, you can run them using a long-running or short-lived process on the machine known as an <strong>Agent</strong>, or you can execute them remotely over SSH which is known as <strong>Agentless</strong> (since SSH-executed tasks do not require an agent to run)</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

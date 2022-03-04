@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">DevOps</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Scripting.html">Scripting</a></li><li><a href="./Infrastructure-Provisioning.html">Infrastructure-Provisioning</a></li><li><a href="./Service-Meshes.html">Service-Meshes</a></li><li><a href="./YAML.html">YAML</a></li><li><a href="./Kubernetes.html">Kubernetes</a></li><li><a href="./Cloud-Providers.html">Cloud-Providers</a></li><li><a href="./CICD.html"><strong>CICD</strong></a></li><li><a href="./Configuration-Management.html">Configuration-Management</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Containers.html">Containers</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">DevOps</a></li><li>CICD</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="cicd-continuous-integraton-continuous-delivery">CI/CD (Continuous Integraton + Continuous Delivery)</h1>
+<p>CI/CD is an automated process to build, test, stage, and deploy code to a hosting environment.</p>
+<ul>
+<li><a href="#cicd-continuous-integraton--continuous-delivery">CI/CD (Continuous Integraton + Continuous Delivery)</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#continuous-integration">Continuous Integration</a></li>
+<li><a href="#continuous-delivery">Continuous Delivery</a></li>
+<li><a href="#cicd-pipelines">CI/CD Pipelines</a>
+<ul>
+<li><a href="#build-pipelines">Build Pipelines</a></li>
+<li><a href="#release-pipelines">Release Pipelines</a></li>
+</ul>
+</li>
+<li><a href="#popular-cicd-tools">Popular CICD Tools</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>Developers create code for applications in a text editor. But, how does that application code go from source control onto a web server so that it can be served on the web?</p>
+<h2 id="continuous-integration">Continuous Integration</h2>
+<p>Continuous Integration (CI) is a practice of automating the integration of code changes from multiple developers into a single software project.</p>
+<p>Developers push code into what's known as <strong>Source Control</strong>, a code versioning tool that allows for keeping track of changes over time. Versioning code allows for multiple developers to easily work on the same codebase.</p>
+<p>When code is checked in, you can trigger an automatic process. This can include automated unit tests, scanning the code for security vulnerabilities, or our next step Continuous Delivery.</p>
+<h2 id="continuous-delivery">Continuous Delivery</h2>
+<p>Continuous Delivery is used to deliver that code to either a staging destination or a server environment where you intend to host the application. An automated script will include the server location to deploy to, your application code, and any other series of steps that are needed beforehand like spinning up your infrastructure via an IaC (Infrastructure as Code) script.</p>
+<h2 id="cicd-pipelines">CI/CD Pipelines</h2>
+<p>A Pipeline is a series of steps that must be performed in order to deliver a new version of software. This can include build and release pipelines.</p>
+<h3 id="build-pipelines">Build Pipelines</h3>
+<p>A type of pipeline for CI typically:</p>
+<ul>
+<li>Builds the code, checking for compilation errors</li>
+<li>Performs tests</li>
+<li>Pulls in appropriate packages from a package manager like npm, pip, or NuGet</li>
+<li>Scans the code for security vulnerabilities</li>
+</ul>
+<h3 id="release-pipelines">Release Pipelines</h3>
+<p>A type of pipeline for CD typically:</p>
+<ul>
+<li>Spins up the appropriate Cloud infrastructure via an IaC script (if applicable)</li>
+<li>Performs the file deployment of the software application assets to an environment (development, test, or production)</li>
+</ul>
+<h2 id="popular-cicd-tools">Popular CICD Tools</h2>
+<p>There are many tools that can be used for integrating and automating deployments. Here are the most popular ones:</p>
+<ul>
+<li>Jenkins</li>
+<li>GitHub Actions</li>
+<li>Azure DevOps</li>
+<li>Circle CI</li>
+<li>TeamCity</li>
+<li>GitLab CI</li>
+</ul>
+<p>Each of these has their pros and cons, such as the ease of use, scale of features, and integration with existing Cloud providers. For example, Jenkins pipelines must be written in Groovy which allows for increased complexity and flexibility for deploying to many different kinds of environments; but also can lend itself to taking more time and effort than using Azure DevOps's UI-based tool for creating pipelines.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

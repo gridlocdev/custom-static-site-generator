@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Security</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Basic-Auth-Methods.html">Basic-Auth-Methods</a></li><li><a href="./Data-Security-Processes.html"><strong>Data-Security-Processes</strong></a></li><li><a href="./Index.html">Index</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Security</a></li><li>Data-Security-Processes</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="standard-data-security-processes-and-terminology">Standard Data Security Processes and Terminology</h1>
+<p>Before knowing about security, it is important to know about a few key computing terms: <strong>encoding</strong>, <strong>encryption</strong>, <strong>hashing</strong>, and <strong>obfuscation</strong>.</p>
+<h2 id="encoding">Encoding</h2>
+<p>Encoding is the process of using a <strong>codec</strong> to convert data in one file type to another for the purposes of data exchange or minimizing the storage a file takes.</p>
+<p>A <strong>codec</strong> is a compression technology and has two components: an <strong>encoder</strong> to compress the files, and a <strong>decoder</strong> to decompress. A codec allows a file format to be compatible with systems, as it enables the end resulting format to mean something to the machine.</p>
+<p>Some examples of codecs are ASCII, URL Encoding, and base64.</p>
+<h2 id="encryption">Encryption</h2>
+<p>Encryption is the process of using a <strong>cipher</strong> to transform data in a way that conceals it from anyone else but the recipient and the sender.</p>
+<p>A <strong>cipher</strong> is a data protection technology that algorithmically converts data into <em>ciphertext</em>, which to parties without a decryptor cipher key is an un-readable format. Each party in an encryption exchange contains a key, which either encrypts the original message contents into ciphertext, or decrypts the ciphertext into the original message contents.</p>
+<p>There are two methodologies used for encryption, <strong>symmetric</strong> and <strong>asymmetric</strong>.</p>
+<h3 id="symmetric">Symmetric</h3>
+<p>Symmetric encryption is where both parties have a copy of the same key (called a <strong>secret key</strong>) which is capable of both decrypting and encrypting messages in the same way.</p>
+<p>This encryption type is used in cases where both parties are able to obtain the secret key without transmitting a copy to any intermediary parties in the middle. For example, when a credit card company sends a card in the mail to a card owner, that card contains a magnetic strip that contains the binary information of the secret key which a card reader then is able to scan and transmit to the appropriate party.</p>
+<p>The most widely used process for Symmetric encryption is <strong><em>AES</em></strong> encryption.</p>
+<h3 id="asymmetric">Asymmetric</h3>
+<p>In an Asymmetric exchange, both parties have a set of two keys. One is used for encryption (the <strong>public key</strong>), and the other is used for decryption (the <strong>private key</strong>).</p>
+<p>In a data exchange with Asymmetric encryption, the parties generally conduct the following sets of steps:</p>
+<ol>
+<li>The parties both generate a set of keys, one public and one private for the uses of encrypting and decrypting their content.</li>
+<li>The parties trade public keys, so they can encrypt messages that the other recipient can unpack and read it securely.</li>
+<li>One party encrypts the message to send using the other party's public key, and then sends the encrypted message over the internet to the recipient using the appropriate networking protocol.</li>
+<li>The receiving party uses the private key to decrypt the content.</li>
+</ol>
+<p>This is secure, provided both parties are on a network where a malicious third party is not able to impersonate one of the two in the exchange. A <em>man-in-the-middle</em> attack is where a third party generates his/her own private/public key pair and injects themselves into the middle of the transaction, attempting to fool one of the parties into sending data they can encrypt with their own keys.</p>
+<p>The most widely used process for Symmetric encryption is <strong><em>RSA</em></strong> encryption.</p>
+<h2 id="hashing">Hashing</h2>
+<p>Hashing is the process of using a <strong>hash function</strong> to obfuscate the data to a fixed length size for the purposes of verifying the authenticity of integrity of inputs.</p>
+<p>A hash function has a few key principles:</p>
+<ul>
+<li>It is a one-way process, and is not reversible. The original input cannot be derived from the hashed value.</li>
+<li>It is re-produceable. Each time the hash function hashes an identical input, it creates the same output.</li>
+<li>Each hash value is unique to a single input value. Two non-identical inputs can never create the same output.</li>
+</ul>
+<p>There are a couple main uses for hashing:</p>
+<ol>
+<li>When data has changed, the entire hash value drastically changes. This makes seaching for changes through indexing the contents of a database incredibly quick.</li>
+<li>Storing and authenticating sensitive data: A hashed value cannot be un-hashed, meaning it's able to be stored in a format that can only be compared to for the purposes of authentication through comparing a newly hashed value with the list of existing hash values.</li>
+</ol>
+<h2 id="obfuscation">Obfuscation</h2>
+<p>Obfuscation is the process of using an algorithm to scramble data for the purposes of making it unreadable. This process is part of Encryption and Hashing, but also exists outside of that in other types of use cases.</p>
+<p>A common use case is obfuscating the source code of websites before sending it to the client browser so that potential malicious recipients cannot easily read through the code and find security vulnerabilities.</p>
+<p>Another use case is when malicious actors create a virus or malware, the code is usually obfuscated so that security programs or engineers cannot easily decipher the contents.</p>
+<p>Here are some examples of algorithms used for obfuscation:</p>
+<h3 id="bitwise-operator-ciphers">Bitwise operator ciphers</h3>
+<p>Transforming the contents of a message in binary using a logical operator like XOR and a key containing a binary value to comapre to</p>
+<h3 id="simple-substitution-ciphers">Simple Substitution ciphers</h3>
+<p>Convert plaintext to a custom alphabet output using a specific set of input-output alphanumeric key values.</p>
+<h3 id="caesar-ciphers">Caesar ciphers</h3>
+<p>Shift the alphabet a number of places up or down, and output the result of the plaintext alphanumeric characters in the new position in the alphabet.</p>
+<p>The standard form of the Caesar cipher is the ROT13 (Rotate by 13 places), where the alphabet is shifted 13 places. The number 13 is significant because the alphabet has 26 letters and regardless of the direction you move each letter ends up on the exact opposite half of the alphabet.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

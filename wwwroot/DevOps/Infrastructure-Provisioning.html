@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">DevOps</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Scripting.html">Scripting</a></li><li><a href="./Infrastructure-Provisioning.html"><strong>Infrastructure-Provisioning</strong></a></li><li><a href="./Service-Meshes.html">Service-Meshes</a></li><li><a href="./YAML.html">YAML</a></li><li><a href="./Kubernetes.html">Kubernetes</a></li><li><a href="./Cloud-Providers.html">Cloud-Providers</a></li><li><a href="./CICD.html">CICD</a></li><li><a href="./Configuration-Management.html">Configuration-Management</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Containers.html">Containers</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">DevOps</a></li><li>Infrastructure-Provisioning</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="infrastructure-provisioning">Infrastructure Provisioning</h1>
+<p>Web applications are becoming more compartmentalized into individual services, often referred to as <em>microservices</em>.</p>
+<p>When lots of these small services are grouped together for an application, it can become difficult to do the initial setup of resources as well as deploy changes to one or more services in the bunch that need updating or re-deployment.</p>
+<p>To accomplish this task, there are tools designed specifically to help define the infrastructure that you need to deploy. These tools are known as <strong>Infrastructure as Code</strong> tools.</p>
+<h2 id="popular-options">Popular Options</h2>
+<p>Some IaC tools are agnostic, and others are designed for specific cloud providers.</p>
+<ul>
+<li>Terraform (Platform-agnostic)</li>
+<li>Azure ARM Templates (Azure)</li>
+<li>AWS CloudFormation Templates (AWS)</li>
+<li>Deployment Manager Templates (GCP)</li>
+</ul>
+<h2 id="what-is-a-template">What is a template?</h2>
+<p>To actually define the set of resources you want to deploy, you typically create a file in a data configuration language that describes which resources to deploy. The files you create to do this are known as <em>templates</em>.</p>
+<h3 id="template-languages">Template languages</h3>
+<p>The language templates are written in can vary by the tool you use, but typically is either written in:</p>
+<ul>
+<li>A standard language like JSON or YAML</li>
+<li>A DSL (Domain-specific language), which is a higher-level abstraction to more easily write in for a specific infrastructure provisioning tool such as <em>Bicep</em> for Azure resource templates and <em>HCL</em> (Hashicorp Configuration Language) for Terraform templates.</li>
+</ul>
+<h3 id="example-template">Example template</h3>
+<p>For example of what a template typically is composed of, here is a basic Terraform HCL file template:</p>
+
+<pre><code>-- Hosted on AWS
+provider "aws" {}
+
+-- Declarative variables
+variable cidr_blocks {}
+variable avail_zone {}
+
+-- Individual resource identifiers
+resource "aws_vpc" "myapp-vpc" {
+  cidr_block = var.cidr_blocks[0].cidr_block
+  tags = {
+    Name: var.cidr_blocks[0].name
+  }
+}
+</code></pre>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

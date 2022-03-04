@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">DevOps</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Scripting.html">Scripting</a></li><li><a href="./Infrastructure-Provisioning.html">Infrastructure-Provisioning</a></li><li><a href="./Service-Meshes.html">Service-Meshes</a></li><li><a href="./YAML.html">YAML</a></li><li><a href="./Kubernetes.html">Kubernetes</a></li><li><a href="./Cloud-Providers.html">Cloud-Providers</a></li><li><a href="./CICD.html">CICD</a></li><li><a href="./Configuration-Management.html">Configuration-Management</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Containers.html"><strong>Containers</strong></a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">DevOps</a></li><li>Containers</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="containers">Containers</h1>
+<p><em>Containers</em> are lightweight portable environments that you create to run your software on.</p>
+<p>A <em>container</em> is a program that runs application code in a secluded area of the operating system. Meaning, that program is completely isolated from and can't see anything in the rest of the processes on the machine.</p>
+<p>Containers are just programs designed to run in an enclosed area with bound ports.</p>
+<h2 id="virtualization">Virtualization</h2>
+<p>Virtualization is about abstracting the application and its components from the hardware that it runs on. <em>Containerization</em> is one main method of achieving this, while the other is using <em>Virtual Machines</em>.</p>
+<p>Containers are different from <em>Virtual Machines</em> in that while Virtual Machines are a virtualized version of the entire operating system, containers just represent a sub-section of programs / files, and often times several containers are run inside one virtual machine.</p>
+<h2 id="drawbacks-of-traditional-bare-metal-hosting">Drawbacks of traditional bare-metal hosting</h2>
+<p>Companies hosting their own bare-metal traditional server hosting typically presents a number of challenges for system admins and operations maintenance staff:</p>
+<ul>
+<li><strong>Maintenance costs</strong> : It often costs lots of money to purchase servers as well as to pay trained professionals to manage those servers.</li>
+<li><strong>Scaling</strong> : Creating / allocating more computing power to handle increased traffic is often expensive and time-consuming as it means purchasing more servers and more work to configure network connectivity.</li>
+<li><strong>Disaster recovery</strong> : The method and ability to revive the application back online in the event of an unpredictable outage like a cyber-attack, natural disaster, etc; can often result in loss of critical data / infrastructure, and cause lots of losses for a company.</li>
+<li><strong>Environment Drift</strong> : Over time, individual tweaks and configuration fixes to servers, can cause unexpected bugs due to the differences in how things are implemented on one server vs another.</li>
+</ul>
+<h2 id="container-options">Container Options</h2>
+<p><strong>Docker</strong> is the leading industry tool used to manage individual containers.</p>
+<p>There are a couple of notable alternative Container tools:</p>
+<ul>
+<li>Podman</li>
+<li>LXC (Linux Containers)</li>
+<li>Containerd</li>
+</ul>
+<h2 id="container-images">Container Images</h2>
+<p>Containers run on an isolated filesystem, which the structure of what it looks like is set up using a <strong>container image</strong>.</p>
+<p>A <strong>container image</strong> contains everything that is needed to run an application including:</p>
+<ul>
+<li>All dependencies</li>
+<li>Configuration</li>
+<li>Scripts</li>
+<li>Binaries</li>
+</ul>
+<p>Also, it might include:</p>
+<ul>
+<li>Environment Variables</li>
+<li>Default shell commands to run</li>
+<li>etc.</li>
+</ul>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

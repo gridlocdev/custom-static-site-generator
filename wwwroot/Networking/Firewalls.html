@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html">DHCP</a></li><li><a href="./DNS.html">DNS</a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html">DNS-Troubleshooting</a></li><li><a href="./Physical-Networking.html">Physical-Networking</a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html">Caching-Servers</a></li><li><a href="./HTTP.html">HTTP</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html">Load-Balancers</a></li><li><a href="./Firewalls.html"><strong>Firewalls</strong></a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>Firewalls</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="firewalls">Firewalls</h1>
+<p>Firewalls are sets of instructions in hardware or software to protect a computer network from potentially malicious incoming traffic.</p>
+<ul>
+<li><a href="#firewalls">Firewalls</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#how-do-firewalls-work">How do Firewalls work?</a></li>
+<li><a href="#outward-traffic">Outward Traffic</a></li>
+<li><a href="#firewall-rules">Firewall Rules</a></li>
+<li><a href="#types-of-firewalls">Types of Firewalls</a>
+<ul>
+<li><a href="#host-based-firewall">Host-based Firewall</a></li>
+<li><a href="#network-based-firewall">Network-based Firewall</a></li>
+</ul>
+</li>
+<li><a href="#state--firewalls">State + Firewalls</a>
+<ul>
+<li><a href="#stateful-firewalls">Stateful firewalls</a></li>
+<li><a href="#state-less-firewalls">State-less firewalls</a></li>
+</ul>
+</li>
+<li><a href="#firewall--osi-layers">Firewall + OSI Layers</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>A firewall is a system that is designed to prevent unauthorized access from entering a private network.</p>
+<p>It creates a safety barrier from a private network and the public internet. Out on the internet, there are hackers and malicious traffic that try to penetrate into a private network to cause harm. A Firewall is the main component on a network to prevent this.</p>
+<h2 id="how-do-firewalls-work">How do Firewalls work?</h2>
+<p>A Firewall blocks unwanted traffic by filtering on a set of rules. The filters can be set on things like IP addresses, Domain names, Protocols, Programs, Ports, and Key words.</p>
+<p>This set of rules is called an <strong>Access Control List</strong>. The firewall parameters are usually determined and applied by the network administrator.</p>
+<h2 id="outward-traffic">Outward Traffic</h2>
+<p>Not only can you prevent traffic inwards to a firewall, you also use firewalls to prevent traffic outwards. It wouldn't make much sense to allow network users to send packets to somewhere that the firewall would then block the response from.</p>
+<h2 id="firewall-rules">Firewall Rules</h2>
+<p>Here is an example of the security history output of an Access Control List.</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>IP Address</th>
+<th>Protocol</th>
+<th>Destination</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALLOW</td>
+<td>ANY</td>
+<td>TCP</td>
+<td>ANY</td>
+<td>80</td>
+</tr>
+<tr>
+<td>ALLOW</td>
+<td>ANY</td>
+<td>TCP</td>
+<td>ANY</td>
+<td>25</td>
+</tr>
+<tr>
+<td>ALLOW</td>
+<td>ANY</td>
+<td>TCP</td>
+<td>ANY</td>
+<td>110</td>
+</tr>
+<tr>
+<td>DENY</td>
+<td>ANY</td>
+<td>UDP</td>
+<td>ANY</td>
+<td>23</td>
+</tr>
+<tr>
+<td>DENY</td>
+<td>ANY</td>
+<td>TCP</td>
+<td>ANY</td>
+<td>3389</td>
+</tr>
+</tbody>
+</table>
+<p>IP addresses and destinations are never "ANY", but for the purposes of simplicity they've been omitted here. From the stuff that's been denied, we can assume one of the below scenarios:</p>
+<ul>
+<li>Either the ports 23 and 3389 are blocked</li>
+<li>UDP is a blocked protocol and access to port 3389 is blocked</li>
+</ul>
+<h2 id="types-of-firewalls">Types of Firewalls</h2>
+<p>In virtually every network, there are two types or layers of firewalls in place.</p>
+<ul>
+<li>Host-based (Individual computers)</li>
+<li>Network-based (upstream Network devices)</li>
+</ul>
+<h3 id="host-based-firewall">Host-based Firewall</h3>
+<p>It's a <em>Software</em> firewall that you install on a computer. It protects that computer <em>only</em> and nothing else. It's commonly bundled in with virus protection like Windows Defender or Norton Antivirus.</p>
+<h3 id="network-based-firewall">Network-based Firewall</h3>
+<p>It's a combination of hardware and software. It operates at the network layer. It's placed between a private network and the public internet. Unlike a host-based firewall, a network-based firewall protects the entire network. This is done by applying those Access Control List rules to the traffic that comes in for the <em>entire</em> network.</p>
+<p>The hardware that usually is used to create firewalls comes in 3 forms:</p>
+<ul>
+<li>Stand-alone firewall: A physical switch box for wired connections</li>
+<li>Router firewall: A router that contains firewall software</li>
+<li>Cloud firewall: A cloud provider provides firewalls as a service, using one of the above two</li>
+</ul>
+<h2 id="state-firewalls">State + Firewalls</h2>
+<p><strong>State</strong> is something that the computer remembers for the purposes of using later.</p>
+<p>For example, on an operating system's taskbar there are a list of programs. That OS data is state-ful, as it organizes data to be used to render for the user to use it later.</p>
+<p>In the context of a firewall, state is used to remember things related to the kinds of packets being sent through. The way it handles it depends just on how much the computer would like to remember to help make decisions.</p>
+<h3 id="stateful-firewalls">Stateful firewalls</h3>
+<p>A Stateful firewall is what you get when you need to have records of past network transactions.</p>
+<p>It's a firewall that applies additional logic to validate requests based on an ACL but also additional filtering rules.</p>
+<p>As an example of something it needs to remember; the number of packets sent from an a recent address is used for protecting against DDOS (Distributed Denial Of Service) attacks.</p>
+<p>A Stateful firewall:</p>
+<ul>
+<li>Remembers information between states</li>
+<li>Context-sensitive (Takes context into account for decisions)</li>
+<li>Is more powerful than stateless</li>
+</ul>
+<h3 id="state-less-firewalls">State-less firewalls</h3>
+<p>A state-less firewall is a cheaper and faster-running version, but does not store any metadata about requests. It only uses an ACL to filter traffic based on a set of rules and that is it. Realistically, that makes it vulnerable to a number of different cyber-attack styles.</p>
+<ul>
+<li>Doesn't remember information between states</li>
+<li>Context-free (Has no context for decisions)</li>
+<li>Less powerful than stateful</li>
+</ul>
+<h2 id="firewall-osi-layers">Firewall + OSI Layers</h2>
+<p>As mentioned earlier, a firewall can be present in the form of both hardware and software. This concept is related to where that type of firewall sits in the <a href="OSI-Model">OSI Model</a>.</p>
+<p>Generally, <strong>Network-based</strong> firewalls sit at layer 3 or 4 of the OSI Model in the Network and Transport layer. Home routers usually contain a firewall present in the hardware.</p>
+<p>Layer 7 firewalls are present at the Application layer, and those are the <strong>Host-based</strong> firewalls. Generally provided by the antivirus software, it acts on network request threats at the software level.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

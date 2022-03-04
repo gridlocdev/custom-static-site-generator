@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">DevOps</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Scripting.html">Scripting</a></li><li><a href="./Infrastructure-Provisioning.html">Infrastructure-Provisioning</a></li><li><a href="./Service-Meshes.html">Service-Meshes</a></li><li><a href="./YAML.html">YAML</a></li><li><a href="./Kubernetes.html"><strong>Kubernetes</strong></a></li><li><a href="./Cloud-Providers.html">Cloud-Providers</a></li><li><a href="./CICD.html">CICD</a></li><li><a href="./Configuration-Management.html">Configuration-Management</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Containers.html">Containers</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">DevOps</a></li><li>Kubernetes</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="introduction-to-kubernetes">Introduction to Kubernetes</h1>
+<p>Kubernetes is an open-source Container Orchestration tool created by Google, and is currently the most popular tool in the industry for organizing and managing containers.</p>
+<p>Before we start, there is an important distinction to make between what tools are available to use while creating your Container cluster. A <strong>Host</strong> is a term for the environment that <em>hosts</em> your application, be it configured on a bare metal operating system or a Virtual Machine. Some tools are built to deploy to <strong><em>multiple</em></strong> hosts, and others are built to just deploy to a <strong><em>singular</em></strong> host for the use of local testing.</p>
+<h2 id="multi-host-orchestration-tools">Multi-Host Orchestration Tools</h2>
+<p>Docker and Kubernetes have their own orchestration frameworks, which are substitutes for one another. But, each has their strengths and weaknesses.</p>
+<ul>
+<li>Kubernetes: Great for medium-large scale deployments, wide degree of functionality and large user community. But, has a pretty steep learning curve for beginners.</li>
+<li>Docker Swarm: Great for smaller-scale deployments, easier usability and is much faster to set up. But, it has limited functionality and does not have as large of a user community.</li>
+</ul>
+<h2 id="single-host-orchestration-tools">Single-Host Orchestration Tools</h2>
+<p>Both Docker and Kubernetes have created tools to allow for deploying a set of containers to just the host machine that it is running on for local development.</p>
+<p>I would recommend picking the one that corresponds to the Multi-Host orchestration tool you choose. For Kubernetes use <strong>MiniKube</strong>, and for Docker Swarm use <strong>Docker Compose</strong>. Aligning your single and multi-host tools makes re-using what you wrote for your IaC scripts quite easy.</p>
+<ul>
+<li>MiniKube: Kubernetes's tool to test local Kubernetes cluster deployments</li>
+<li>Docker Compose: Docker's tool to spin up multiple individually defined containers on a single host machine</li>
+</ul>
+<blockquote>
+<p>Here is a great StackOverflow post about the differences between Docker, Docker Compose, and Kubernetes. Understanding which tool is used when is important when setting up a containerization strategy.</p>
+<p><a href="https://stackoverflow.com/questions/47536536/whats-the-difference-between-docker-compose-and-kubernetes">External Link: StackOverflow - What's the difference between Docker Compose and Kubernetes?</a></p>
+</blockquote>
+<h2 id="clusters-in-kubernetes">Clusters in Kubernetes</h2>
+<p>As web applications are divided into smaller microservices, they're also regularly hosted on separate machines. To accomplish the task of organizing all of this, we use a <strong>Cluster</strong>.</p>
+<h3 id="what-is-a-cluster">What is a Cluster?</h3>
+<p>A container <strong>Cluster</strong> is a defined set of hosting infrastructure that you use to run your containers. The defined clusters themselves are not tied to individual machines, but rather a template in how they should be organized and hosted.</p>
+<p>Each machine in a <em>cluster</em> can either be a virtual machine or the usual physical computer operating directly with the physical hardware through the operating system, as is the case with usual hosting environments.</p>
+<p>A cluster contains two types of resources:</p>
+<ul>
+<li><strong>Nodes</strong>: Worker machines that run the containerized applications</li>
+<li><strong>Control Plane</strong>: Coordinates the nodes on the cluster</li>
+</ul>
+<h3 id="nodes">Nodes</h3>
+<p>Each individual virtual or physical machine in a Cluster is called a <strong>Node</strong>.</p>
+<p>Each of these cluster nodes contains a running process that helps coordinate with the rest of the containers through the cluster's <em>Control Plane</em>.</p>
+<h3 id="control-planes">Control Planes</h3>
+<p>The Control plane coordinates activities in the cluster, such as:</p>
+<ul>
+<li>Scheduling applications</li>
+<li>Maintaining application state</li>
+<li>Scaling applications</li>
+<li>Rolling out new updates</li>
+</ul>
+<p>When an action is needed, which can be either directly detected by Kubernetes or manually entered through the Kubernetes API by a human, the Control Plane sends these updates to the awaiting worker node processes and conducts the appropriate action.</p>
+<h3 id="creating-a-cluster">Creating a Cluster</h3>
+<p>For developing and testing clusters, there are a number of tools available. Kubernetes provides one called <em>MiniKube</em>, which is used to create Kubernetes clusters on a local machine for testing and development.</p>
+<p>If you would like to create a cluster using MiniKube on your own machine, you need to do a few things:</p>
+<ol>
+<li>Decide the best <em>hypervisor</em> for your environment that you would like to use, such as VirtualBox, Docker, or Hyper-V</li>
+<li>For MiniKube, make sure that your computer operating system or processor aligns with the supported MiniKube drivers for your hypervisor of choice. This list of supported drivers is here: <a href="https://minikube.sigs.k8s.io/docs/drivers/">External Link: MiniKube - Supported Drivers</a></li>
+<li>Make sure that the setting for Virtualization is enabled in your BIOS settings.</li>
+<li>Install Kubernetes</li>
+<li>Install MiniKube</li>
+</ol>
+<p>Once MiniKube is installed and configured, the commands on the tool are now accessible through the command line using the command line identifier <code>minikube</code> to execute the MiniKube shell commands.</p>
+<h2 id="container-orchestration">Container Orchestration</h2>
+<p>Containers changed the way that application architecture is hosted. In recent times, applications on the web have been broken down into smaller services called <em>microservices</em>. Each of these microservices in an application stack is not run via web server software directly touching the operating system, but instead is run on an isolated system runtime known as a <a href="../Containers/Index.html">Container</a>.</p>
+<p>To define your set of Containers to be deployed and managed at scale, the most feasible option is to use a Container Orchestration tool. There are a number of popular Container Orchestration tools, here are the most notable ones:</p>
+<ul>
+<li>Kubernetes</li>
+<li>Docker Swarm</li>
+<li>Nomad</li>
+<li>Amazon ECS</li>
+</ul>
+<p>Since Container Orchestration is about organizing and connecting individual containers, learning how those individual containers work first is an important step to begin to understand Orchestration: <a href="../Containers/Index.html">Containers with Docker</a></p>
+<p>For the purposes of my notes, I'll be taking a look at Kubernetes as it is the industry standard for Container Orchestration.</p>
+<h3 id="orchestration-terminology">Orchestration Terminology</h3>
+<ul>
+<li><strong><em>Clusters</em></strong> are groups of physical servers or VMs (Virtual Machines), the computer infrastructure that the containers are running on.</li>
+<li><strong><em>Pods</em></strong> are groups of deployed containers, which can be distributed among any number of servers in a <em>cluster</em>.</li>
+<li><strong><em>Kubernetes</em></strong> is a container orchestration framework created by Google.</li>
+<li><strong>_MiniKube</strong>* is a tool created by Google to create Kubernetes clusters on a local machine for testing and development.</li>
+<li><strong>_Control Plane</strong>* is a process that coordinates collaborative actions on or between all of the nodes in a Kubernetes cluster.</li>
+<li><strong>_Nodes</strong>* are each individual worker machine in a <em>cluster</em></li>
+</ul>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html">DHCP</a></li><li><a href="./DNS.html">DNS</a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html">DNS-Troubleshooting</a></li><li><a href="./Physical-Networking.html"><strong>Physical-Networking</strong></a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html">Caching-Servers</a></li><li><a href="./HTTP.html">HTTP</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html">Load-Balancers</a></li><li><a href="./Firewalls.html">Firewalls</a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>Physical-Networking</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="physical-networking">Physical Networking</h1>
+<h2 id="overview">Overview</h2>
+<p>This page is a surface level view of physical-level networking devices and terminology.</p>
+<ul>
+<li><a href="#physical-networking">Physical Networking</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#connecting-computers-together">Connecting Computers Together</a></li>
+<li><a href="#network-types">Network Types</a></li>
+<li><a href="#communication-protocol">Communication Protocol</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="connecting-computers-together">Connecting Computers Together</h2>
+<p>The point of networking is to connect devices together. To do this, internet is transferred in two ways.</p>
+<ol>
+<li>Wireless Access Points (WAP), otherwise known as WiFi</li>
+<li>Wired Ethernet Connections</li>
+</ol>
+<p>Ethernet is often run through walls, and is inconvenient in most rooms without a port. Most home networks have a wired hub with a bunch of ports on it somewhere, which both the wireless routers and internal wall-wired ethernet cabling eventually get hooked up to.</p>
+<h2 id="network-types">Network Types</h2>
+<p>Every accessible computing or networking device in a network is called a <strong><em>node</em></strong>. Nodes are a term to represent the concept of a device that contains a certain set of distinguishable characteristics such as an IP address, network protocol, and so on.</p>
+<p>Networks vary in size. Here are some examples:</p>
+<ol>
+<li>Personal Area Network (PAN) - When a group of devices is intended for personal use / storage and is within about 10 meters of one another.</li>
+<li>Local Area Network (LAN) - When several devices/nodes are collected via a local area switch</li>
+<li>Wide Area Network (WAN) - When more than one LAN is connected to one another.
+<ol>
+<li>Enterprise Network - Data center connects to a wide array of other smaller more distributed LANs and nodes.</li>
+<li>ISP / Cloud National Network - Data centers distributed across the country and the world.</li>
+</ol>
+</li>
+</ol>
+<p>SOHO (Small Office / Home Office) Network is another commonly used term for LANs in work-from-home places or small businesses.</p>
+<h2 id="communication-protocol">Communication Protocol</h2>
+<p>There are an astronomical amount of different ways that computers can communicate with one another. To choose one, both parties in a communication decide on a <em>protocol</em>, or set of structural guidelines for how the message should be parsed.</p>
+<p>Common protocols are:</p>
+<ul>
+<li>Ethernet</li>
+<li>TCP</li>
+<li>HTTP (Web)</li>
+<li>SMTP (Email)</li>
+</ul>
+<p>Several protocols are often used together to complete a task.</p>
+<p>Protocols are used in many different levels of the <a href="OSI-Model#osi-model">OSI Model</a>. HTTP and SMTP are appliation-level protocols, while TCP and IP are lower-level network-related protocols.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

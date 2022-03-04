@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">DevOps</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Scripting.html">Scripting</a></li><li><a href="./Infrastructure-Provisioning.html">Infrastructure-Provisioning</a></li><li><a href="./Service-Meshes.html">Service-Meshes</a></li><li><a href="./YAML.html"><strong>YAML</strong></a></li><li><a href="./Kubernetes.html">Kubernetes</a></li><li><a href="./Cloud-Providers.html">Cloud-Providers</a></li><li><a href="./CICD.html">CICD</a></li><li><a href="./Configuration-Management.html">Configuration-Management</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Containers.html">Containers</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">DevOps</a></li><li>YAML</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="yaml-introduction-and-basic-commands">YAML Introduction and Basic Commands</h1>
+<h2 id="overview">Overview</h2>
+<p>YAML is a human-readable data-serialization language. It is commonly used for configuration files and in applications where data is being stored or transmitted.</p>
+<p>YAML = YAML Ain't Markup Language</p>
+<p>In the DevOps world, it is used for all sorts of things.</p>
+<ul>
+<li>Docker Compose Files</li>
+<li>CI/CD Pipeline Files</li>
+<li>Kubernetes Pod Files</li>
+</ul>
+<p>Here are some examples of the primary features of YAML's syntax:</p>
+<ul>
+<li><a href="#yaml-introduction-and-basic-commands">YAML Introduction and Basic Commands</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#key-value-pairs">Key-value pairs</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#objects">Objects</a></li>
+<li><a href="#lists">Lists</a></li>
+<li><a href="#booleans">Booleans</a></li>
+<li><a href="#advanced-lists">Advanced Lists</a></li>
+<li><a href="#kubernetes-example">Kubernetes Example</a></li>
+<li><a href="#multi-line-strings">Multi-Line Strings</a></li>
+<li><a href="#environment-variables">Environment Variables</a></li>
+<li><a href="#placeholders">Placeholders</a></li>
+<li><a href="#components">Components</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="key-value-pairs">Key-value pairs</h2>
+<pre><code>app: user-authentication
+port: 9000
+version: 1.7
+</code></pre>
+<p>Strings can come in three formats</p>
+<pre><code>item1: user-authentication
+item2: 'user-authentication'
+item3: "user-authentication"
+</code></pre>
+<p>Line Breaks need to be enclosed in a string like this</p>
+<pre><code>item: "user-authentication \n"
+</code></pre>
+<h2 id="comments">Comments</h2>
+<pre><code># This is a comment
+</code></pre>
+<p>Make sure to use comments to section apart your YAML file for readability.</p>
+<h2 id="objects">Objects</h2>
+<pre><code>microservice:
+  app: user-authentication
+  port: 9000
+  version: 1.7
+</code></pre>
+<p>This is an object named "Microservice" with attributes app, port, and version. Attribute relationships in YAML are defined by indentation.</p>
+<h2 id="lists">Lists</h2>
+<pre><code>microservices:
+  - app: user-authentication
+    port: 9000
+    version: 1.7
+  - app: shopping-cart
+    port: 9002
+    version: 1.9
+</code></pre>
+<p>You can also express the list separators on its own line.</p>
+<pre><code>microservices:
+  - 
+    app: user-authentication
+    port: 9000
+    version: 1.7
+  - 
+    app: shopping-cart
+    port: 9002
+    version: 1.9
+</code></pre>
+<h2 id="booleans">Booleans</h2>
+<pre><code>boolean-types:
+  - 
+    boolean-true: true
+    boolean-false: false
+  - 
+    boolean-true: yes
+    boolean-false: no
+  - 
+    boolean-true: on
+    boolean-false: off
+</code></pre>
+<h2 id="advanced-lists">Advanced Lists</h2>
+<p>You can add strings as values to a list. The key is its preceding hierarchy node.</p>
+<pre><code>Fruit-Basket:
+  - Apple
+  - Banana
+</code></pre>
+<p>You can define lists inside other items by indenting as you would expect.</p>
+<pre><code>Basket:
+  Fruits:
+    - Apple
+    - Banana
+  Vegetables:
+    - Broccoli
+    - Carrots
+    - Lettuce
+</code></pre>
+<p>You can also express lists in an array-type form.</p>
+<pre><code>Basket:
+  Fruits: [Apple, Banana]
+  Vegetables: [Broccoli, Carrots, Lettuce]
+</code></pre>
+<h2 id="kubernetes-example">Kubernetes Example</h2>
+<p>Here is an example file in Kubernetes.</p>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  containers: 
+  - 
+    name: nginx-container
+    image: nginx
+    ports: 
+    - containerPort: 80
+    volumeMounts: 
+    - name: nginx-vol
+      mountPath: /usr/nginx/html
+  - 
+    name: sidecar-container
+    image: some-image
+    command: ["/bin/sh"]
+    args: ["-c", "echo Hello from the sidecar container; sleep 300"]    
+</code></pre>
+<h2 id="multi-line-strings">Multi-Line Strings</h2>
+<p>To preserve file line breaks:</p>
+<pre><code>multilineString: |
+  mitochondria is the 
+  powerhouse 
+  of the 
+  cell
+
+# The compiler will read this as
+# 
+# multilineString: mitochondria is the 
+#                  powerhouse 
+#                  of the 
+#                  cell
+</code></pre>
+<p>To do the opposite and interpret multiple file lines as one string:</p>
+<pre><code>multilineString: &gt; 
+  mitochondria is the 
+  powerhouse 
+  of the 
+  cell
+
+# The compiler will read this as 
+# multilineString: mitochondria is the powerhouse of the cell
+</code></pre>
+<p>Example use case:</p>
+<p>If you'd like to define several shell commands to execute in a row, you would do it like this</p>
+<pre><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquitto-config-file
+data:
+  mosquitto.conf: |
+    log_dest stdout
+    log_type all
+    log_timestamp true
+    listener 9001
+</code></pre>
+<p>Also, you could come into contact with something that looks like the following:</p>
+<pre><code>command:
+  - sh
+  - c
+  - |
+    #!/usr/bin/env bash -e
+    http() {
+      local path="${1}"
+      set -- -XGET -s --fail
+      # some more stuff here
+      curl -k "$@" "http://localhost:5601${path}"
+    }
+    http "/app/kibana"
+</code></pre>
+<h2 id="environment-variables">Environment Variables</h2>
+<p>In YAML, you can access environment variables by using a <strong>dollar sign</strong> symbol.</p>
+<blockquote>
+<p>$</p>
+</blockquote>
+<p>In the following example, we use an environment variable that contains a database password.</p>
+<pre><code>command: 
+  - /bin/sh
+  - -ec
+  - &gt;-
+    mysql -h 127.0.0.1 -u root -p$MYSQL_ROOT_PASSWORD -e 'SELECT 1'
+</code></pre>
+<h2 id="placeholders">Placeholders</h2>
+<p>When you use a platform like Ansible, Helm, or Azure Pipelines, sometimes there are values that specific platform can provide. On compiling the YAML, it evaluates these expressions and places in the appropriate values. To specify where and what insert for those, you define it with either single or double curly braces:</p>
+
+<p>{% raw %}</p>
+<ul>
+<li>{{ }}</li>
+<li></li>
+</ul>
+<p>{% endraw %}</p>
+
+<pre><code>aliVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+spec: 
+  selector: 
+    app: {{ .Values.service.app }}
+  ports:
+  - 
+    protocol: TCP
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetport }}
+</code></pre>
+
+<h2 id="components">Components</h2>
+<p>If you have separate YAML that you want to separate out, you use three dashes.</p>
+<pre><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquitto-config-file
+data:
+  mosquitto.conf: |
+    log_dest stdout
+    log_type all
+    log_timestamp true
+    listener 9001
+
+--- 
+
+Grocery-List:
+  Fruits: [Apple, Banana]
+  Vegetables: [Broccoli, Carrots, Lettuce]
+</code></pre>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

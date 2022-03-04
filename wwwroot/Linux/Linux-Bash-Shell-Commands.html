@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Linux</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Linux-Bash-Shell-Commands.html"><strong>Linux-Bash-Shell-Commands</strong></a></li><li><a href="./Main-Linux-Directories.html">Main-Linux-Directories</a></li><li><a href="./Index.html">Index</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Linux</a></li><li>Linux-Bash-Shell-Commands</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="basic-linux-shell-commands">Basic Linux Shell Commands</h1>
+<p>Linux is an operating system made for greater control of the computer. To accomplish this, lots of primary functionality requires usage of a shell or command line.</p>
+<p><a href="https://www.hostinger.com/tutorials/linux-commands">Commands from: Hostinger Linux Commands Tutorial</a></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#basic-linux-shell-commands">Basic Linux Shell Commands</a>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#basic-commands">Basic Commands</a></li>
+<li><a href="#advanced-commands">Advanced Commands</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="basic-commands">Basic Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pwd</td>
+<td><code>pwd</code></td>
+<td>Prints the current directory path</td>
+</tr>
+<tr>
+<td>cd</td>
+<td><code>cd [directory_name]</code></td>
+<td>Changes the directory you're currently in.</td>
+</tr>
+<tr>
+<td>ls</td>
+<td><code>ls</code></td>
+<td>Prints the contents of the directory to the console.</td>
+</tr>
+<tr>
+<td>cat</td>
+<td><code>cat [file_name]</code></td>
+<td>List the contents of a file</td>
+</tr>
+<tr>
+<td>cp</td>
+<td><code>cp [path/file_name] [directory_path]</code></td>
+<td>Copy files to location</td>
+</tr>
+<tr>
+<td>mv</td>
+<td><code>mv [path/file_name] [directory_path]</code></td>
+<td>Move files to location</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td><code>mkdir [directory_name]</code></td>
+<td>Creates a directory with the specified name</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td><code>rmdir [directory_name]</code></td>
+<td>Removes a directory</td>
+</tr>
+<tr>
+<td>rm</td>
+<td><code>rm [file_name]</code></td>
+<td>Deletes a file</td>
+</tr>
+<tr>
+<td>touch</td>
+<td><code>touch [file_name]</code></td>
+<td>Creates a new blank file</td>
+</tr>
+<tr>
+<td>locate</td>
+<td><code>locate [file_name]</code></td>
+<td>Searches ALL directories of the filesystem to find the specified item</td>
+</tr>
+<tr>
+<td>find</td>
+<td><code>find [file_name]</code></td>
+<td>Searches only the current directory of the filesystem to find the specified item</td>
+</tr>
+<tr>
+<td>grep</td>
+<td><code>grep [file_name]</code></td>
+<td>Searches all the text within a file and prints out a highlighted version to the console window</td>
+</tr>
+<tr>
+<td>sudo</td>
+<td><code>sudo apt install [package_name]</code></td>
+<td>Do something as an admin user. It's short for 'SuperUser do'. These tasks usually require admin or root permissions. Try not to use it too much, it can break things.</td>
+</tr>
+<tr>
+<td>df</td>
+<td><code>df -h</code></td>
+<td>Output how much disk space is currently being used in the current directory</td>
+</tr>
+<tr>
+<td>du</td>
+<td><code>du -h</code></td>
+<td>Output how much storage is taken up in the current directory</td>
+</tr>
+<tr>
+<td>head</td>
+<td><code>head [file_name]</code></td>
+<td>Output the <em>first</em> x number of lines of a text file</td>
+</tr>
+<tr>
+<td>tail</td>
+<td><code>tail [file_name]</code></td>
+<td>Output the <em>last</em> x number of lines of a text file.</td>
+</tr>
+<tr>
+<td>diff</td>
+<td><code>diff [file_1_name] [file_2_name]</code></td>
+<td>Compare the contents of a file line by line, and console output lines that do not match</td>
+</tr>
+<tr>
+<td>tar</td>
+<td><code>tar tvf [file_name].tar.gz</code></td>
+<td>Compress a set of files together (Usually used for archiving)</td>
+</tr>
+<tr>
+<td>chmod</td>
+<td><code>chmod r+w [file_name]</code></td>
+<td>(Change Mode): Change the read / write / execute permissions of files or directories</td>
+</tr>
+<tr>
+<td>chown</td>
+<td><code>chown [user_name] [file_name]</code></td>
+<td>(Change Ownership): Change the ownership of a file or directory to another user</td>
+</tr>
+<tr>
+<td>jobs</td>
+<td><code>jobs -l</code></td>
+<td>Lists out all currently executing system processes to the console</td>
+</tr>
+<tr>
+<td>kill</td>
+<td><code>kill [process_id]</code></td>
+<td>Stops a program's process given the ID of the program</td>
+</tr>
+<tr>
+<td>ping</td>
+<td><code>ping [host_address]</code></td>
+<td>Check your connectivity to network host address</td>
+</tr>
+<tr>
+<td>wget</td>
+<td><code>wget [host_address]</code></td>
+<td>Download files from the internet (if it's a download link) into the current directory</td>
+</tr>
+<tr>
+<td>uname</td>
+<td><code>uname -a</code></td>
+<td>Prints detailed information about your Linux system like machine name, operating system, kernel, etc.</td>
+</tr>
+<tr>
+<td>top</td>
+<td><code>top</code></td>
+<td>(Table of Processes): A console output of a Task Manager view. See utilized CPU, running processes, anything you can see in the System Monitor/Task Manager but inside the shell window</td>
+</tr>
+<tr>
+<td>history</td>
+<td><code>history</code></td>
+<td>View a list of all of the commands you've entered in the lifetime of the shell window</td>
+</tr>
+<tr>
+<td>man</td>
+<td><code>man [command_name]</code></td>
+<td>(Manual): View a description of any command and view a list of its arguments</td>
+</tr>
+<tr>
+<td>echo</td>
+<td><code>echo "Hello, World!"</code></td>
+<td>Print text for the given argument into the shell window</td>
+</tr>
+<tr>
+<td>zip</td>
+<td><code>zip [file_title].zip [file_name]</code></td>
+<td>Compress your files into a zipped archive</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td><code>hostname</code></td>
+<td>View the name of the currently connected network</td>
+</tr>
+<tr>
+<td>useradd</td>
+<td><code>sudo useradd [user_name]</code></td>
+<td>Linux is a multi-user system, and these two commands add and remove users</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td><code>passwd</code></td>
+<td>Adds or modifies a password for the current user</td>
+</tr>
+<tr>
+<td>clear</td>
+<td><code>clear</code></td>
+<td>Clears the console output window</td>
+</tr>
+</tbody>
+</table>
+<h2 id="advanced-commands">Advanced Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uptime</td>
+<td><code>uptime</code></td>
+<td>Displays how long the system has been running. Outputs the number of users, and average computational load on the system</td>
+</tr>
+<tr>
+<td>apt</td>
+<td><code>apt install [package_name]</code></td>
+<td>Install, update, remove, or manage packages from the primary package manager for Linux (DPKG)</td>
+</tr>
+<tr>
+<td>yum</td>
+<td><code>yum install [package_name]</code></td>
+<td>Install, update, remove, or manage packages from a 3rd party package manager (RPM). Primarily used in a Red Hat based OS</td>
+</tr>
+<tr>
+<td>lsof</td>
+<td><code>lsof</code></td>
+<td>(List Open Files): Lists out all of the files that are currently being accessed by processes</td>
+</tr>
+<tr>
+<td>ss</td>
+<td><code>ss -t -a</code></td>
+<td>Fully-featured view of network connection information. This helps display information about open sockets and active connections</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td><code>netstat</code></td>
+<td>Commonly considered a deprecated and less feature-ful network information tool. It is functionally similar to the <code>ss</code> command, and shares many common outputs</td>
+</tr>
+<tr>
+<td>mount</td>
+<td><code>sudo mount -l -t [directory_name]</code></td>
+<td>Used to attach a local or network drive to be accessed by the Unix-based filesystem</td>
+</tr>
+</tbody>
+</table>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

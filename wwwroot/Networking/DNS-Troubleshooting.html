@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html">DHCP</a></li><li><a href="./DNS.html">DNS</a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html"><strong>DNS-Troubleshooting</strong></a></li><li><a href="./Physical-Networking.html">Physical-Networking</a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html">Caching-Servers</a></li><li><a href="./HTTP.html">HTTP</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html">Load-Balancers</a></li><li><a href="./Firewalls.html">Firewalls</a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>DNS-Troubleshooting</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="dns-troubleshooting">DNS Troubleshooting</h1>
+<p>This document outlines commonly used tools and methods for troubleshooting DNS issues.</p>
+<ul>
+<li><a href="#dns-troubleshooting">DNS Troubleshooting</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#troubleshoot-an-ip">Troubleshoot an IP</a>
+<ul>
+<li><a href="#nslookup">nslookup</a></li>
+<li><a href="#dig">dig</a></li>
+<li><a href="#host">host</a></li>
+</ul>
+</li>
+<li><a href="#troubleshoot-a-connection">Troubleshoot a Connection</a>
+<ul>
+<li><a href="#ping">ping</a></li>
+</ul>
+</li>
+<li><a href="#online-tools">Online tools</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>To troubleshoot DNS issues, there are plenty of options that could help you discover the problem. Here are the most popular and practical for your needs.</p>
+<h2 id="troubleshoot-an-ip">Troubleshoot an IP</h2>
+<h3 id="nslookup">nslookup</h3>
+<p><strong>nslookup</strong> checks against DNS servers to return the IP address for a URL as well as any aliases the site may go by.</p>
+<h3 id="dig">dig</h3>
+<p>In Linux and MacOS, there is a command line tool for querying DNS nameservers. It can identify IP address records, record the query route as it obtains answers from an authoritative nameserver, and diagnose other dns problems.</p>
+<p>It is also available for Windows on the author's website.</p>
+<h3 id="host">host</h3>
+<p>This is also a linux command, and returns the IPv4 and IPv6 addresses for a website URL.</p>
+<h2 id="troubleshoot-a-connection">Troubleshoot a Connection</h2>
+<h3 id="ping">ping</h3>
+<p>If you would like to see how quickly a server responds to a request, you can send it a <strong>ping</strong> command.</p>
+<blockquote>
+<p>ping <a href="http://www.google.com">www.google.com</a></p>
+</blockquote>
+<h2 id="online-tools">Online tools</h2>
+<p>There are also online tools available to do the same and some extra things like the command line counterparts, a quick google search will yield you many options.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

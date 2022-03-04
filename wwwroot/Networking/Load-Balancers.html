@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html">DHCP</a></li><li><a href="./DNS.html">DNS</a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html">DNS-Troubleshooting</a></li><li><a href="./Physical-Networking.html">Physical-Networking</a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html">Caching-Servers</a></li><li><a href="./HTTP.html">HTTP</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html"><strong>Load-Balancers</strong></a></li><li><a href="./Firewalls.html">Firewalls</a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>Load-Balancers</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="load-balancers">Load Balancers</h1>
+<p>Load Balancers are intermediate servers in a web architecture that route traffic and distribute requests among a set of servers.</p>
+<ul>
+<li><a href="#load-balancers">Load Balancers</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#algorithms">Algorithms</a>
+<ul>
+<li><a href="#round-robin-rr">Round Robin (RR)</a>
+<ul>
+<li><a href="#regular">Regular</a></li>
+<li><a href="#weighted-round-robin">Weighted Round Robin</a></li>
+</ul>
+</li>
+<li><a href="#load-based">Load Based</a>
+<ul>
+<li><a href="#least-connections">Least Connections</a></li>
+<li><a href="#resource-based">Resource Based</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#benefits-of-load-balancers">Benefits of Load Balancers</a>
+<ul>
+<li><a href="#scalability">Scalability</a></li>
+<li><a href="#availability">Availability</a></li>
+<li><a href="#flexibility--convenience">Flexibility / Convenience</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>Load Balancers are intermediate servers in a web architecture that route traffic and distribute requests among a set of servers. See <a href="Proxy-Servers">DOC: Proxy Servers</a> for more specifics on how a server does this.</p>
+<p>A set of servers grouped is called a <em>pool</em>.</p>
+<h2 id="algorithms">Algorithms</h2>
+<p>Since a Load Balancer's job is to distribute requests to multiple computers, it can do it in a number of ways. Here are the main types of ways that are used in the field.</p>
+<h3 id="round-robin-rr">Round Robin (RR)</h3>
+<p>This is the simplest and most popular of the algorithm types, but it has flaws.</p>
+<h4 id="regular">Regular</h4>
+<p>The Load Balancer will cycle between the pool servers in order that they are defined, one at a time. As an example, if you have servers A, B, and C, the order will look like this:</p>
+<ol>
+<li>A</li>
+<li>B</li>
+<li>C</li>
+<li>A</li>
+<li>B</li>
+<li>...</li>
+</ol>
+<p>Regular Round Robin does distribute requests, but it doesn't take into account the existing sessions or any other necessary items to route requests.</p>
+<h4 id="weighted-round-robin">Weighted Round Robin</h4>
+<p>A Weighted Round Robin algorithm works the same way as the Regular one does, except that a server administrator applies a weight to how many requests a server in the pool can perform. This is useful in cases where you are running different levels of machines, and still need to transfer requests between them.</p>
+<p>For a simplified example, assume that an enterprise has a cluster of three servers:</p>
+<p>• Server A can handle 15 requests per second, on average
+• Server B can handle 10 requests per second, on average
+• Server C can handle 5 requests per second, on average</p>
+<p>Next, assume that the load balancer receives 6 requests.</p>
+<p>• 3 requests are sent to Server A
+• 2 requests are sent to Server B
+• 1 request is sent to Server C.</p>
+<p>In this manner, the weighted round robin algorithm distributes the load according to each server’s capacity.</p>
+<h3 id="load-based">Load Based</h3>
+<p>This strategy takes into account the load of your servers. If one is overburdened, it will send requests to the other one.</p>
+<p>There are two categories to divert load:</p>
+<h4 id="least-connections">Least Connections</h4>
+<p>Which machines in the pool have the least amount of active connections? When the TCP handshake happens between the client and the server, a connection is established and the resources are in transit. The Least Connections algorithm just counts the current connections and distributes things appropriately. Since both servers serve the same content, the connection's eventual response payload size is equivalent among load balanced servers.</p>
+<h4 id="resource-based">Resource Based</h4>
+<p>Monitors the machines and checks for CPU levels/utilization, disk space, memory levels. Some metric that exists on those machines that is reported back to the Load balancer so it can make its appropriate judgements to determine who to send traffic to.</p>
+<h2 id="benefits-of-load-balancers">Benefits of Load Balancers</h2>
+<h3 id="scalability">Scalability</h3>
+<p>With a load balancer, you can provision more than a singular server to route and handle requests. This allows you to scale to as many requests as you need, given you have the number of servers available.</p>
+<h3 id="availability">Availability</h3>
+<p>When one of the web servers crash, the Load Balancer will know to re-route requests to other currently up and running machines. Since there is likely a machine running, this gets rid of downtime.</p>
+<h3 id="flexibility-convenience">Flexibility / Convenience</h3>
+<p>A load balancer allows you to have a single URL for multiple servers, which is much more convenient than having people connect using different URLs.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

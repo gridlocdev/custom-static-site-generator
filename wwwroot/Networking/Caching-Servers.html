@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html">DHCP</a></li><li><a href="./DNS.html">DNS</a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html">DNS-Troubleshooting</a></li><li><a href="./Physical-Networking.html">Physical-Networking</a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html"><strong>Caching-Servers</strong></a></li><li><a href="./HTTP.html">HTTP</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html">Load-Balancers</a></li><li><a href="./Firewalls.html">Firewalls</a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>Caching-Servers</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="caching-servers">Caching Servers</h1>
+<p>Caching is about pre-storing a reused result of an operation (web page, database call, etc.) so that future requests return faster.</p>
+<ul>
+<li><a href="#caching-servers">Caching Servers</a>
+<ul>
+<li><a href="#when-should-we-cache">When should we cache?</a></li>
+<li><a href="#examples-of-when-caching-would-be-useful">Examples of when caching would be useful</a>
+<ul>
+<li><a href="#http-caching">HTTP Caching</a></li>
+<li><a href="#database">Database</a></li>
+</ul>
+</li>
+<li><a href="#cache-hit--cache-miss">Cache Hit / Cache Miss</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="when-should-we-cache">When should we cache?</h2>
+<p>We should cache when any of the following criteria is met:</p>
+<ol>
+<li>When the underlying computation is slow</li>
+<li>When the computation will run multiple times</li>
+<li>When the output is the same for a particular input</li>
+<li>When your hosting provider charges for DB access</li>
+</ol>
+<h2 id="examples-of-when-caching-would-be-useful">Examples of when caching would be useful</h2>
+<p>There are two usual use cases for caching, both on a web server to pre-fetch database content and also in a CDN to cache static web pages and serve those from nodes around the world.</p>
+<h3 id="http-caching">HTTP Caching</h3>
+<p>CDNs are used to more easily and quickly distribute website pages to users in different locations around the world from a server in or near their location to improve speed.</p>
+<p>In order for the CDN node servers to know what content to serve, it needs to cache the content so it can itself deliver it many times. Once it is cached, that set of static files is delivered to the close-regional users that make web requests for that site.</p>
+<h3 id="database">Database</h3>
+<p>Caching database results saves both time for computation, and money if you're using a cloud database hosting provider.</p>
+<p>If a database takes ~50ms to compute and return the results of a particular query, that means that database is only able to compute 20 results per second. Instead, if the result of that query is sent to the web server and stored in cache memory in a hash-table, it can be retrieved and sent as many times as needed with no necessary database request round-trip.</p>
+<h2 id="cache-hit-cache-miss">Cache Hit / Cache Miss</h2>
+<p>A server caches content for the intent to re-use that stored content later. To store and retrieve, it needs to be able to make the decision to serve fresh data or to serve a cached copy.</p>
+<p>When a server returns its cached content, that is a <strong>cache hit</strong>. When it instead has to go and make the initial retrieval, that is called a <strong>cache miss</strong>.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

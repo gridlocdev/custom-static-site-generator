@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html">DHCP</a></li><li><a href="./DNS.html">DNS</a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html">DNS-Troubleshooting</a></li><li><a href="./Physical-Networking.html">Physical-Networking</a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html">Caching-Servers</a></li><li><a href="./HTTP.html"><strong>HTTP</strong></a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html">Load-Balancers</a></li><li><a href="./Firewalls.html">Firewalls</a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>HTTP</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="http">HTTP</h1>
+<p>HTTP is the main protocol used for computers to send data on the World Wide Web.</p>
+<ul>
+<li><a href="#http">HTTP</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#main-features">Main Features</a>
+<ul>
+<li><a href="#connectionless--stateless">Connectionless / Stateless</a></li>
+<li><a href="#media-independency">Media Independency</a></li>
+</ul>
+</li>
+<li><a href="#https">HTTPS</a></li>
+<li><a href="#http-methods">HTTP Methods</a></li>
+<li><a href="#request--response">Request / Response</a>
+<ul>
+<li><a href="#headers">Headers</a>
+<ul>
+<li><a href="#general-fields"><strong>General Fields</strong></a></li>
+<li><a href="#response-fields-server"><strong>Response Fields (Server)</strong></a></li>
+<li><a href="#request-fields-client"><strong>Request Fields (Client)</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#http-status-codes">HTTP Status Codes</a>
+<ul>
+<li><a href="#ranges">Ranges</a></li>
+<li><a href="#important-status-codes">Important Status Codes</a></li>
+</ul>
+</li>
+<li><a href="#body">Body</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>HTTP is arguably the most common one of the main application-level protocols. It is used to deliver data on the World Wide Web.</p>
+<p>This data can be HTML files, image files, query results, etc. It specifies a formal standard for how web clients and web servers can construct and exchange this data with one another.</p>
+<h2 id="main-features">Main Features</h2>
+<h3 id="connectionless-stateless">Connectionless / Stateless</h3>
+<p>Every request is completely independent. In the communication protocol itself, it does not include any record of previous transactions.</p>
+<p>You can (and it's common practice to) record things on the client and server machines when it gets there for things like cookies, sessions, etc; if you need that type of information, but nothing inherently about the protocol stashes or persists any connectivity record information.</p>
+<h3 id="media-independency">Media Independency</h3>
+<p>Any type of data can be sent by HTTP as long as both the client and the server agree on and know how to handle the data content.</p>
+<p>To do this, it is required for the client as well as the server to specify the content type using the appropriate MIME-type. The mime type is just a string representation of the data type that you're sending, like ".js", ".mp4", ".txt", and so on. Here is a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types">LINK: MDN - Common MIME Types</a></p>
+<h2 id="https">HTTPS</h2>
+<p>HTTPS stands for <em><strong>H</strong>yper <strong>T</strong>ext <strong>T</strong>ransfer <strong>P</strong>rotocol: <strong>S</strong>ecure</em></p>
+<p>The <em>Secure</em> means that all data that is sent back and forth is encrypted by SSL (Secure Sockets Layer) or TLS (Transport Layer Security).</p>
+<h2 id="http-methods">HTTP Methods</h2>
+<p>I'll omit HTTP methods here, because taking notes on something I already know isn't as much use to me. If someone other than myself is reading this, here is a resource to learn about HTTP methods <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">LINK: MDN - HTTP request methods</a></p>
+<h2 id="request-response">Request / Response</h2>
+<p>HTTP requests are split up into two parts, a <strong>header</strong>, and a <strong>body</strong>.</p>
+<h3 id="headers">Headers</h3>
+<p>A <strong>header</strong> contains metadata that could be used to assist with processing the request. Portions of the metadata could be things that matter to both the client and the web server, or from only one to the other.</p>
+<p>The following is a list of the basic header fields that you can send as part of an HTTP request.</p>
+<h4 id="general-fields"><strong>General Fields</strong></h4>
+<ul>
+<li>Request URL
+<ul>
+<li>The URL you are requesting</li>
+</ul>
+</li>
+<li>Request Method
+<ul>
+<li>GET/POST/etc.</li>
+</ul>
+</li>
+<li>Status Code
+<ul>
+<li>See <a href="#response-codes">SECTION: Response Codes</a></li>
+</ul>
+</li>
+<li>Remote Address
+<ul>
+<li>IP of the remote computer</li>
+</ul>
+</li>
+<li>Referrer Policy
+<ul>
+<li>Info on the previous page you were at if it's a link</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-fields-server"><strong>Response Fields (Server)</strong></h4>
+<ul>
+<li>Server
+<ul>
+<li>Apache/NGINX</li>
+</ul>
+</li>
+<li>Set-Cookie
+<ul>
+<li>Send small pieces of data called cookies from the server to the client</li>
+</ul>
+</li>
+<li>Content-Type
+<ul>
+<li>Type of data contained in the body (html, jpg, application/json, etc.)</li>
+</ul>
+</li>
+<li>Content-Length
+<ul>
+<li>Length in octets (8-bit bytes)</li>
+</ul>
+</li>
+<li>Date</li>
+</ul>
+<h4 id="request-fields-client"><strong>Request Fields (Client)</strong></h4>
+<ul>
+<li>Cookies
+<ul>
+<li>Cookie that is previously sent by the server</li>
+</ul>
+</li>
+<li>Accept-xxx
+<ul>
+<li>Types of these things that the client is able to understand</li>
+<li>Examples
+<ul>
+<li>Encoding</li>
+<li>Charset</li>
+<li>Language</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Content-Type
+<ul>
+<li>Type of data contained in the body (html, jpg, application/json, etc.)</li>
+</ul>
+</li>
+<li>Content-Length
+<ul>
+<li>Length in octets (8-bit bytes)</li>
+</ul>
+</li>
+<li>Authorization
+<ul>
+<li>Here you can put a token or some other client identifier that is used by the server to know who you are</li>
+</ul>
+</li>
+<li>User-Agent
+<ul>
+<li>Long string that has to do with the software that the user is using (Browser, Operating System, etc.)</li>
+</ul>
+</li>
+<li>Referrer
+<ul>
+<li>Info on the previous page you were at if it's a link</li>
+</ul>
+</li>
+</ul>
+<h2 id="http-status-codes">HTTP Status Codes</h2>
+<h3 id="ranges">Ranges</h3>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1xx</td>
+<td>Informational</td>
+<td>Request received / processing</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>Success</td>
+<td>Successfully Received</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>Redirect</td>
+<td>Further action must be taken</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>Client Error</td>
+<td>Request does not have what it needs</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>Server Error</td>
+<td>Server failed to fulfill a valid request</td>
+</tr>
+</tbody>
+</table>
+<h3 id="important-status-codes">Important Status Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+</tr>
+<tr>
+<td>201</td>
+<td>OK created</td>
+</tr>
+<tr>
+<td>301</td>
+<td>Moved to new URL</td>
+</tr>
+<tr>
+<td>304</td>
+<td>Not modified (cached version)</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad request</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+</tr>
+</tbody>
+</table>
+<h2 id="body">Body</h2>
+<p>This is where the thing you're trying to send will be. Beit an html page, an image, or some other type of data, the raw format will be here. The type is mentioned in the request header so that the receiving computer is able to read it.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

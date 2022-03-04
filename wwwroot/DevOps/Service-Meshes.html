@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">DevOps</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Scripting.html">Scripting</a></li><li><a href="./Infrastructure-Provisioning.html">Infrastructure-Provisioning</a></li><li><a href="./Service-Meshes.html"><strong>Service-Meshes</strong></a></li><li><a href="./YAML.html">YAML</a></li><li><a href="./Kubernetes.html">Kubernetes</a></li><li><a href="./Cloud-Providers.html">Cloud-Providers</a></li><li><a href="./CICD.html">CICD</a></li><li><a href="./Configuration-Management.html">Configuration-Management</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Containers.html">Containers</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">DevOps</a></li><li>Service-Meshes</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="service-mesh">Service Mesh</h1>
+<h2 id="overview">Overview</h2>
+<p>In the industry application-style shift of moving away from monolithic-style applications and towards microservices, a number of issues are present in the vanilla implementation of a micro-services architecture.</p>
+<p>Breaking out an application stack into multiple separate network-related instances means you often will need to repeat portions of supporting functionality outside of the business logic of each service. This can include things like:</p>
+<ul>
+<li>Communications Logic</li>
+<li>Security Logic</li>
+<li>Retry Logic</li>
+<li>Logging</li>
+</ul>
+<p>A <strong>Service Mesh</strong> is a contains a way of abstracting away that supporting logic into a repeat-able and deploy-able set of resources for your containerized application services.</p>
+<p>Tools built to create and configure Service Meshes are usually tightly connected with a container orchestration framework like Kubernetes or Docker Swarm. This is because both the Service Meshes and an orchestration framework use the schema of the set of containers to know what to deploy to.</p>
+<blockquote>
+<p>There is a lot more to cover here, I would recommend viewing <a href="https://www.youtube.com/watch?v=16fgzklcF7Y">External Link: TechWorld with Nana - Istio &amp; Service Mesh</a> to learn more.</p>
+</blockquote>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

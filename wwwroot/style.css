@@ -1,0 +1,78 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    /* TODO */
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sidebar-bg-color: rgb(33, 37, 41);
+
+    --content-bg-color: #191919;
+    --content-text-color: whitesmoke;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: var(--content-bg-color);
+  color: var(--content-text-color);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Make the navigation pane on mobile/portrait scroll out of view instead of obscuring the viewport */
+@media screen and (max-width: 500px) {
+  body {
+    display: block;
+  }
+}
+
+a {
+  color: lightskyblue;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.sidebar {
+  flex: 1;
+  background-color: var(--sidebar-bg-color);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.sidebar .sub-header {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+main {
+  flex: 6;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 2rem;
+}
+
+ul.breadcrumb,
+.sidebar ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li + li:before {
+  padding: 8px;
+  color: var(--content-text-color);
+  content: "/\00a0";
+}

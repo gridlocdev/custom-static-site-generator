@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html">DHCP</a></li><li><a href="./DNS.html"><strong>DNS</strong></a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html">DNS-Troubleshooting</a></li><li><a href="./Physical-Networking.html">Physical-Networking</a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html">Caching-Servers</a></li><li><a href="./HTTP.html">HTTP</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html">Load-Balancers</a></li><li><a href="./Firewalls.html">Firewalls</a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>DNS</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="dns-domain-name-system">DNS (Domain Name System)</h1>
+<p>DNS is how computers can match a human-named URL to a computer's IP address</p>
+<ul>
+<li><a href="#dns-domain-name-system">DNS (Domain Name System)</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#where-is-my-dns-server">Where is my DNS Server?</a></li>
+<li><a href="#what-usual-steps-are-taken-when-i-connect-to-a-web-page">What usual steps are taken when I connect to a web page?</a></li>
+<li><a href="#isp-domain-discovery">ISP Domain Discovery</a>
+<ul>
+<li><a href="#1-root-servers"><strong>1. Root Servers</strong></a></li>
+<li><a href="#2-tld-servers"><strong>2. TLD Servers</strong></a></li>
+<li><a href="#3-authoritative-dns-server"><strong>3. Authoritative DNS Server</strong></a></li>
+<li><a href="#4-isp-resolver-caching-and-response"><strong>4. ISP Resolver Caching and Response</strong></a></li>
+</ul>
+</li>
+<li><a href="#end-note">End Note</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>Computers store the its identification as a number, such as a MAC Address or IP address. But, what about a human-readable version?</p>
+<p>DNS Resolves domain names to I.P. addresses. This is used to find the appropriate device when you type in a website URL (Uniform Resource Locator)</p>
+<h2 id="where-is-my-dns-server">Where is my DNS Server?</h2>
+<p>Most home routers wear many hats, such as DHCP server, default gateway, and also as DNS servers. These above three in an enterprise or VLAN often times are on separate devices.</p>
+<h2 id="what-usual-steps-are-taken-when-i-connect-to-a-web-page">What usual steps are taken when I connect to a web page?</h2>
+<p>When connecting to a website or domain via a Domain Name, your computer will contact your local DNS server (Domain Name System) to kick things off.</p>
+<p>The ISP and your local DNS server is responsible for caching IP addresses and domain names so that your computer can easily retrieve them for later use. Most of the time, either one of these devices will have this domain's IP cached. Finding the URL this way is called a <strong><em>Recursive</em></strong> DNS query.</p>
+<blockquote>
+<p>If you would like to see your local DNS server's cached addresses and IPs in Windows 10, type:</p>
+<p><code>ipconfig /displaydns</code></p>
+</blockquote>
+<p>But, in the case that it is not cached, there is a process that your ISP's resolver takes to find and deliver back the appropriate IP address for that domain. This is called an <strong><em>iterative</em></strong> DNS query</p>
+<blockquote>
+<p>TLDR: Your local DNS server and your ISP's resolver search their cache to try and find a domain-IP pair. If not, the following ISP domain discovery begins.</p>
+</blockquote>
+<p>If the ISP's resolver cache does not contain a domain name and IP pair, it sends it to a <strong>Root Server</strong>.</p>
+<h2 id="isp-domain-discovery">ISP Domain Discovery</h2>
+<h3 id="root-servers"><strong>1. Root Servers</strong></h3>
+<p>This server is on the top of the hierarchy. There are only 13 sets around the world, and collectively are operated by 12 different organizations. These are geographically placed around the world, and the closest one to you takes your ISP's resolver's request.</p>
+<p>This contains and responds with the network locations for a list of Top Level Domain servers. The ISP resolver then checks over there.</p>
+<h3 id="tld-servers"><strong>2. TLD Servers</strong></h3>
+<p>The TLD (Top Level Domain) servers are responsible for knowing who has the IP addresses for sites at a particular domain extension(A singular domain extension like .com, .net, .org, etc).</p>
+<p>When an internet domain is registered with a registrar, the domain and the IP of a  Authoritative DNS server is stored onto a TLD server.</p>
+<p>Once a domain and Authoritative DNS server pair is found, it is sent back to your ISP resolver to be queried for an IP.</p>
+<h3 id="authoritative-dns-server"><strong>3. Authoritative DNS Server</strong></h3>
+<p>Responsible for knowing everything about the domain, including the IP address.</p>
+<p>This server finds the IP address for that domain name and sends back a response with that included to the ISP's Resolver.</p>
+<h3 id="isp-resolver-caching-and-response"><strong>4. ISP Resolver Caching and Response</strong></h3>
+<p>Once your ISP Resolver has an IP and domain pair, it is cached and stored for re-use so that subsequent domain location requests will be sent using the data from its cache.</p>
+<h2 id="end-note">End Note</h2>
+<p>If at any step of Domain Discovery it does not sufficiently find details about the domain, the appropriate server will respond to your ISP resolver with an error and the discover process will end.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

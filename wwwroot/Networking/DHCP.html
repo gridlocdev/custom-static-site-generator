@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Networking</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./DHCP.html"><strong>DHCP</strong></a></li><li><a href="./DNS.html">DNS</a></li><li><a href="./NAT.html">NAT</a></li><li><a href="./Proxy-Servers.html">Proxy-Servers</a></li><li><a href="./OSI-Model.html">OSI-Model</a></li><li><a href="./DNS-Troubleshooting.html">DNS-Troubleshooting</a></li><li><a href="./Physical-Networking.html">Physical-Networking</a></li><li><a href="./Gateways.html">Gateways</a></li><li><a href="./Caching-Servers.html">Caching-Servers</a></li><li><a href="./HTTP.html">HTTP</a></li><li><a href="./Index.html">Index</a></li><li><a href="./Subnets.html">Subnets</a></li><li><a href="./Load-Balancers.html">Load-Balancers</a></li><li><a href="./Firewalls.html">Firewalls</a></li><li><a href="./Signal.html">Signal</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Networking</a></li><li>DHCP</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="what-is-dhcp">What is DHCP</h1>
+<p>DHCP is what allows local networking to be possible, as it's how computers are assigned IP addresses.</p>
+<p>It's also responsible for implementing both <a href="Subnets.html">DOC: Subnets</a>, and <a href="Gateways.html">DOC: Gateways</a>. Make sure you know these before you get started.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#what-is-dhcp">What is DHCP</a>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#overview">Overview</a>
+<ul>
+<li><a href="#static-ip-old-way"><em>Static IP</em> [Old way]</a></li>
+<li><a href="#dynamic-ip-modern-way"><em>Dynamic IP</em> [Modern way]</a></li>
+</ul>
+</li>
+<li><a href="#wheres-my-dhcp-server">WHERE'S MY DHCP SERVER?</a>
+<ul>
+<li><a href="#home-network">Home Network</a></li>
+<li><a href="#business-network">Business Network</a></li>
+</ul>
+</li>
+<li><a href="#assigning-an-initial-ip-to-your-dhcp-server">Assigning an Initial IP to your DHCP Server</a></li>
+<li><a href="#dhcp-servers-scope">DHCP Server's "Scope"</a></li>
+<li><a href="#dhcp-local-computer-ip-leases">DHCP Local Computer IP Leases</a></li>
+<li><a href="#reservations">Reservations</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>DHCP - Dynamic Host Configuration Protocol</p>
+<p>IP addresses are strings of numbers that identify a PC on a network. Because of this, all computers on a network are required to have an IP address. Otherwise, your network controller or switch would have no idea where to send packets to.</p>
+<p>IP can be assigned in two ways: Static and Dynamic.</p>
+<h3 id="static-ip-old-way"><em>Static IP</em> [Old way]</h3>
+<p>Each computer is manually configured to contain an IP address, and is typed in through operating system settings. (This also includes subnet masks, and default gateway)</p>
+<h3 id="dynamic-ip-modern-way"><em>Dynamic IP</em> [Modern way]</h3>
+<p>A computer gets its network identifiers from a separate server, a DHCP (Dynamic Host Configuration Protocol) server. This server configures the host, by generating and assigning that computer the following:</p>
+<ul>
+<li>IP Address</li>
+<li>Subnet Mask</li>
+<li>Default Gateway</li>
+<li>DNS Server</li>
+</ul>
+<h2 id="wheres-my-dhcp-server">WHERE'S MY DHCP SERVER?</h2>
+<p>Your ISP has one DHCP server somewhere on their network and you have one DHCP server somewhere on your network.</p>
+<p>What and where your local DHCP server is depends on what type of network it you are on.</p>
+<h3 id="home-network">Home Network</h3>
+<p>In a home network, that is your router. Your router is the main hub of your Local Area Network that transfers things between your local devices and what it recieves from other computers across the internet.</p>
+<p>To accomplish splitting up access between public and private networks, routers have two NICs, or Network Interface Cards. These two divide your network into a public and privately accessible network. One NIC will face your ISP and its IP address will be assigned by your ISP. The other NIC/s will face your network and will be controlled by your network.</p>
+<h3 id="business-network">Business Network</h3>
+<p>In a business network, often times there are many distributed LANs across floors, buildings, and sites. Because of this, the DHCP service usually runs on a dedicated server; which is usually also the one responsible for DNS.</p>
+<h2 id="assigning-an-initial-ip-to-your-dhcp-server">Assigning an Initial IP to your DHCP Server</h2>
+<p>The ISP assigns an IP to the device you're using to run a local DHCP service. That device is responsible for similar duties to the router defined in <a href="#home-network">Home Network</a>. This can either be a router or a server propped up by your business.</p>
+<p>Then, internal LAN computers contact your local DHCP service device to then be assigned IP addresses inside your private network. The response contains the above list of identifiable attributes in <a href="#dynamic-ip-modern-way">Dynamic IP</a>.</p>
+<h2 id="dhcp-servers-scope">DHCP Server's "Scope"</h2>
+<p>A DHCP Server has to know how many devices it's allowed to hand IPs to. A scope is a range of IP addresses that a DHCP server is allowed to hand out.</p>
+<ul>
+<li>
+<blockquote>
+<p>Start IP Address: - 10.0.0.1</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>End IP Address: - 10.0.0.100</p>
+</blockquote>
+</li>
+</ul>
+<p>Inside that range, the network administrator can assign IPs to either decrease from the maximum or count up from the minimum. It's configurable.</p>
+<h2 id="dhcp-local-computer-ip-leases">DHCP Local Computer IP Leases</h2>
+<p>Since DHCP servers have a limited scope of IP addresses to hand out, the addresses of local computers are temporary for the time of their <em>lease</em>.</p>
+<p>When computers are set up into a network, the DHCP server gives them an IP address. It's only valid for a particular time period, and has to be renewed at the end of that time period. When a computer fails to renew its IP address lease, the associated address becomes available again to be re-assigned to a new computer.</p>
+<h2 id="reservations">Reservations</h2>
+<p>A <em>reservation</em> ensures that a specific computer or device will always be given the same IP address.</p>
+<p>These reservations are typically given to static assets such as network printers, servers, routers, etc. Computers that aren't going anywhere.</p>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

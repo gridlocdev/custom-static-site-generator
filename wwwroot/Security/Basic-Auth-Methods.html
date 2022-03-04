@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>gridlocdev's notes</title>
+    <link id="ssg-inject-stylesheet" rel="stylesheet" href="../style.css">
+    <link id="ssg-inject-favicon" rel="shortcut icon" href="../gridlocdev-logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <h2>Gridlocdev's Notes</h2>
+        <h3 id="ssg-inject-sidebar-subheader" class="sub-header">Security</h3>
+        <ul id="ssg-inject-sidebar-links">
+            <!-- Sidebar elements injected here -->
+        <li><a href="./Basic-Auth-Methods.html"><strong>Basic-Auth-Methods</strong></a></li><li><a href="./Data-Security-Processes.html">Data-Security-Processes</a></li><li><a href="./Index.html">Index</a></li></ul>
+    </nav>
+
+    <main>
+        <a name="top"></a>
+        <ul id="ssg-inject-breadcrumb-links" class="breadcrumb">
+            <!-- Breadcrumb navigation elements injected here -->
+        <li><a href="../Index.html">Home</a></li><li><a href="Index.html">Security</a></li><li>Basic-Auth-Methods</li></ul>
+
+        <article id="ssg-inject-content"><h1 id="security-basic-authorization-authentication">Security: Basic Authorization / Authentication</h1>
+<p>For the most part, implementing security on the web is complicated enough that utilizing an external entity (e.g. an identity provider or an authorization server/service) is the best and easiest option.</p>
+<p>The modern protocols are designed to make fulfilling servers' authorization needs to these entities more streamlined and easier.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#security-basic-authorization--authentication">Security: Basic Authorization / Authentication</a>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#what-is-auth">What is "auth"?</a></li>
+<li><a href="#basic-authentication">Basic authentication</a></li>
+<li><a href="#saml">SAML</a>
+<ul>
+<li><a href="#saml-assertions">SAML Assertions</a></li>
+<li><a href="#what-is-saml-20">What is SAML 2.0?</a></li>
+</ul>
+</li>
+<li><a href="#oauth">OAuth</a>
+<ul>
+<li><a href="#key-entities">Key Entities</a></li>
+<li><a href="#important-key-oauth-terms">Important Key OAuth Terms</a></li>
+<li><a href="#oauth-20-user-authentication--authorization-flow">OAuth 2.0 User Authentication / Authorization Flow</a></li>
+<li><a href="#openid-connect">OpenID Connect</a>
+<ul>
+<li><a href="#id-tokens-and-jwt">ID Tokens and JWT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#other-notable-authentication-protocols">Other notable authentication protocols</a>
+<ul>
+<li><a href="#ldap">LDAP</a></li>
+<li><a href="#kerberos">Kerberos</a></li>
+<li><a href="#radius">RADIUS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-is-auth">What is "auth"?</h2>
+<p><em>Auth</em> can refer to either <strong>Authentication</strong>, <strong>Authorization</strong>, or both.</p>
+<p><strong>Authentication</strong> is the verification of a user's identity, mainly for the purposes of identifying who to <em>authorize</em> in an application.</p>
+<p><strong>Authorization</strong> is the process of identifying and provisioning the resources that a user or service requests access to.</p>
+<p>Authentication and authorization on the internet is usually provisioned using one of the following methods:</p>
+<ul>
+<li>Basic auth</li>
+<li>SAML</li>
+<li>OAuth</li>
+<li>LDAP</li>
+<li>Kerberos</li>
+<li>RADIUS</li>
+</ul>
+<p>The following are key terms to note, and are used frequently as part of the above methods:</p>
+<ul>
+<li>Keys</li>
+<li>Tokens</li>
+<li>JWT</li>
+</ul>
+<p>The general principle behind internet security is to allow computing systems to operate while themselves and the data they transport is free from a state of danger or threat.</p>
+<p>To accomplish this, data must use a series of algorithms to translate into formats for both data exchange, data integrity, and storage. See <a href="data-key-terms.html">Key Data Terms</a> for more information: this note covers <em>encryption</em>, <em>encoding</em>, and <em>hashing</em>.</p>
+<h2 id="basic-authentication">Basic authentication</h2>
+<p>At the most basic level, the purpose of authentication is to use an input to validate the integrity of the user input. The basic bare-bones authentication sends, for example, username and password in plaintext and verifies that against an existing set of plaintext credentials.</p>
+<p>This accomplishes authentication, but has no measures of security in place to prevent compromise of the data on the machine and in transit. A great number of low-skill cyber-attacks can compromise credentials in plaintext format.</p>
+<pre><code>{
+    'username': 'ExampleUser123'
+    'password': 'TotallySecurePassword1'
+}
+
+</code></pre>
+<h2 id="saml">SAML</h2>
+<p>SAML (Security Assertion Markup Language) is an XML-based protocol commonly used in enterprise or legacy systems for Single Sign-On (SSO) <strong>authentication</strong>.</p>
+<p>This system is commonly used for authenticating a user once for the use of multiple applications.</p>
+<p>This protocol has three main entities:</p>
+<ul>
+<li><strong>Principal</strong> (User Agent): The requesting user's web browser</li>
+<li><strong>Service Provider</strong> (SP): The application the user is accessing</li>
+<li><strong>Identity Provider</strong> (IDP): A third party service provider providing an identity federation service; such as Active Directory, Okta, or Auth0</li>
+</ul>
+<p>The general process flow is this:</p>
+<ol>
+<li>The <strong>Service Provider</strong> sends a webpage to the <strong>Principal</strong></li>
+<li>The <strong>Principal</strong> attempts to sign on, sending a login message back to the <strong>Service Provider</strong></li>
+<li>The <strong>Service Provider</strong> sends a request on behalf of authenticating the Principal to the <strong>Identity Provider</strong></li>
+<li>The <strong>Identity Provider</strong> creates a <em>SAML Assertion</em>; a document that contains the authorization status of the Principal's credentials,</li>
+<li>The <strong>Identity Provider</strong> sends this document back to the <strong>Service Provider</strong></li>
+<li>The <strong>Service Provider</strong> conducts the appropriate action for successfully authenticated users, and sends a successful login response to the <strong>Principal</strong></li>
+<li>The <strong>Principal</strong> then engages with the content as an authenticated user</li>
+</ol>
+<h3 id="saml-assertions">SAML Assertions</h3>
+<p>A <em>SAML Assertion</em> is a document that contains the authorization status of the Principal's credentials, containing all the information necessary for a service provider to confirm user identity. This includes the source of the assertion, the time it was issued, and the conditions that make the assertion valid.</p>
+<h3 id="what-is-saml-2.0">What is SAML 2.0?</h3>
+<p>SAML 2.0 is the modern standard for this type of identity federation service,  released in 2005. It contains some backwards compatibility with previous releases of the service (SAML ~1.1), which may be common in legacy software that uses this standard.</p>
+<h2 id="oauth">OAuth</h2>
+<p>OAuth is an <strong>authorization</strong> framework to enable secure scoped access to one or more delegated application resource(s). In combination with an authorization framework (such as Open ID Connect ), this allows scoped access to applications without the need for users to give their password each time to each application.</p>
+<p>The modern standard for this protocol is OAuth 2.0, which was re-written from the ground-up. It is not backwards compatible with the previous releases OAuth 1.0 and 1.1.</p>
+<h3 id="key-entities">Key Entities</h3>
+<p>Here are the key entities in the OAuth transaction:</p>
+<ul>
+<li><strong>Resource Owner (User)</strong>: The owner of the identity, which is the user making the request</li>
+<li><strong>Client Application</strong>: The user accessed application that would like to perform actions on behalf of the user</li>
+<li><strong>Authorization Server</strong>: The third-party auth server that contains the account that the user would like access provisioned for</li>
+<li><strong>Resource Server</strong>: The third-party application that would like to perform actions on behalf of the user</li>
+</ul>
+<h3 id="important-key-oauth-terms">Important Key OAuth Terms</h3>
+<p>Here are some additional key terms:</p>
+<ul>
+<li><strong>Redirect URI (Callback URL)</strong>: The URL that the user is directed to after user permission is sent back to the <strong>client application</strong></li>
+<li><strong>Response Type</strong>: The type of response the client expects to receive (e.g. an authorization code)</li>
+<li><strong>Scope</strong>: The granular permissions the client wants (access to data or to perform actions e.g. read/update/delete items, read profile, etc)</li>
+<li><strong>Consent</strong>: The permission box presented to the user through the <strong>client application</strong> application confirming that they authorize the scope of permissions the application wants to do</li>
+<li><strong>Client ID</strong>: This ID is used to identify the <strong>client application</strong> with the <strong>authorization server</strong></li>
+<li><strong>Client Secret</strong>: A secret password that only the <strong>client application</strong> and the <strong>authorization server</strong> knows; which is used to securely share information behind the scenes</li>
+<li><strong>Authorization Code</strong>: A short-lived temoporary code that the <strong>authorization server</strong> sends back to the <strong>client application</strong>. The <strong>client application</strong> then sends a bundle of the <strong>authorization code</strong> and the <strong>Client Secret</strong> back to the <strong>authorization server</strong> in exchange for an <strong>access token</strong></li>
+<li><strong>Access token</strong>: The key the <strong>client application</strong> will use from that point forward to communicate with the <strong>resource server</strong>.</li>
+</ul>
+<h3 id="oauth-2.0-user-authentication-authorization-flow">OAuth 2.0 User Authentication / Authorization Flow</h3>
+<ol>
+<li>The resource owner sends a request to the client application asking for authentication.</li>
+<li>The client application redirects the browser to the authorization server, and includes with that request the following pieces of information: [<strong>Client ID</strong>, <strong>Redirect URI</strong>, <strong>Response Type</strong>, <strong>Scope(s)</strong>].</li>
+<li>The authorization server verifies the identity of the resource owner, and if the resource owner's identity is not found it will ask for a login.</li>
+<li>If a successful authorization, the authorization server presents a <strong>consent</strong> form listing the permissions it wishes to grant the client application to do on behalf of the resource owner.</li>
+<li>The authorization server redirects the resource owner's page back to the client application using the <strong>Redirect URI (Callback URL)</strong> along with a temporary <strong>authorization code</strong>. This code can then be exchanged for an <strong>access token</strong>.</li>
+<li>The client application then sends the following information back to the authorization server: [<strong>Authorization code</strong>, <strong>Client ID</strong>, <strong>Client Secret</strong>], and asks for an <strong>access token</strong> in return.</li>
+<li>The authorization server sends back the <strong>access token</strong> to the client application.</li>
+<li>The client application then sends over the <strong>access token</strong> to the resource server, which then will use that to perform actions on behalf of the resource owner when requested from the client application.</li>
+</ol>
+<blockquote>
+<p>Keep going using the following link:</p>
+<p><a href="https://www.youtube.com/watch?v=t18YB3xDfXI">An Illustrated Guide to OAuth and OpenID Connect</a></p>
+</blockquote>
+<h3 id="openid-connect">OpenID Connect</h3>
+<p>OAuth 2.0 only provides a service for <em>authorization</em>, or providing the authority for a server to have access to do particular actions. But, how does the authorization server know <em>who</em> the user is?</p>
+<p><strong>Open ID Connect</strong>, or <strong>OIDC</strong> for short, is an extension to OAuth 2.0 that adds an authentication layer. It allows client applications to confirm an end user's identity using authentication by reaching out to an authorization server. This enables <strong>Single Sign-On (SSO)</strong> capabilities, where once logged in a user does not have to re-log in to other services that authenticate with the same identity provider.</p>
+<p>OpenID's user flow remains the same as the vanilla OAuth version, but with a few additions.</p>
+<ul>
+<li>The scope sent to the authorization server by the client application is set to "OPENID"</li>
+<li>When the authorization server sends back its authorization code, it also sends back something called an <strong>ID Token</strong>.</li>
+</ul>
+<h4 id="id-tokens-and-jwt">ID Tokens and JWT</h4>
+<p>This token is in the format of a JSON Web Token, or JWT for short. A JWT is a highly obfuscated string of characters in a JSON (JavaScript Object Notation) file, of which the client application can de-obfuscate and extract the user's information from.</p>
+<p>The information inside an ID token is called  <strong>Claims</strong>. This information typically includes some of the following:</p>
+<ul>
+<li>Issued by</li>
+<li>Issued at (time)</li>
+<li>Expiration</li>
+<li>User ID</li>
+</ul>
+<p>Using the access token, if needed, the client application can request additional information from the authorization server such as an email address.</p>
+<h2 id="other-notable-authentication-protocols">Other notable authentication protocols</h2>
+<blockquote>
+<p>I may at some point expand on this section if there is information I need to know in the future.</p>
+<p>If you are interested in any of these, please seek a more fully-featured overview.</p>
+</blockquote>
+<p>Here are some additional but commonly used tools in identity management systems:</p>
+<h3 id="ldap">LDAP</h3>
+<p>LDAP (Lightweight Directory Access Protocol), is a protocol used for authenticating against directories inside an internal network.</p>
+<p>This is commonly used in enterprise scenarios to provision access to computers and other virtual assets.</p>
+<h3 id="kerberos">Kerberos</h3>
+<p>Kerberos is a network authentication protocol created by MIT in the late 1980s, and is currently the basis for Microsoft's Active Directory user authentication system.</p>
+<h3 id="radius">RADIUS</h3>
+<p>RADIUS (Remote Authentication Dial-In User Service), is a fully-featured network access framework for what is described as a "AAA" schema.</p>
+<ul>
+<li>Authentication</li>
+<li>Authorization</li>
+<li>Accounting (Logging of user activity)</li>
+</ul>
+</article>
+
+        <hr>
+        <a href="#top"><strong>Return to Top</strong></a>
+    </main>
+</body>
+
+</html>

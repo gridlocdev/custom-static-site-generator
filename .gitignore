@@ -3,11 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Custom project specific settings:
-input/*
-!input/.gitkeep
-wwwroot/*
-!wwwroot/.gitkeep
+# # Uncomment these to omit all input and output files while testing:
+# input/*
+# !input/.gitkeep
+# wwwroot/*
+# !wwwroot/.gitkeep
 
 # User-specific files
 *.rsuser
