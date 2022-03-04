@@ -62,7 +62,6 @@ This accomplishes authentication, but has no measures of security in place to pr
     'username': 'ExampleUser123'
     'password': 'TotallySecurePassword1'
 }
-
 ```
 
 ## SAML
@@ -134,7 +133,7 @@ Here are some additional key terms:
 7. The authorization server sends back the **access token** to the client application.
 8. The client application then sends over the **access token** to the resource server, which then will use that to perform actions on behalf of the resource owner when requested from the client application.
 
-> Keep going using the following link:
+> Here is a great tutorial that dives more into detail:
 >
 > [An Illustrated Guide to OAuth and OpenID Connect](https://www.youtube.com/watch?v=t18YB3xDfXI)
 
