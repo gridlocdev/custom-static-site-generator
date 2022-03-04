@@ -1,4 +1,4 @@
-using static System.Configuration.ConfigurationManager;
+﻿using static System.Configuration.ConfigurationManager;
 using Markdig;
 using Ganss.XSS;
 using HtmlAgilityPack;
@@ -40,7 +40,7 @@ var inputRelativePaths = Directory.GetFiles(AppSettings["InputFolder"]!, "*.md",
 .Select(path => path.Remove(0, AppSettings["InputFolder"]!.Length));
 
 // Clear each HTML file in the output folder each run. Not the most elegant solution, but it works.
-System.Console.WriteLine("Clearing output directory...");
+System.Console.WriteLine("Clearing built files from output directory...");
 string pattern = "*.html";
 foreach (string file in Directory.GetFiles(AppSettings["OutputFolder"]!, pattern, SearchOption.AllDirectories))
     File.Delete(file);
