@@ -1,15 +1,21 @@
 @media (prefers-color-scheme: light) {
   :root {
-    /* TODO */
+    --text-color: rgb(0, 0, 0);
+    --text-color-accent: rgb(255, 255, 255);
+    --text-color-link: rgb(0, 108, 209);
+    --bg-color-primary: rgb(255, 255, 255);
+    --bg-color-secondary: #eeeeee;
+    --bg-color-accent: rgb(103, 189, 255);
   }
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: whitesmoke;
     --text-color-accent: rgb(255, 174, 52);
+    --text-color-link: lightskyblue;
     --bg-color-primary: #191919;
     --bg-color-secondary: rgb(33, 37, 41);
-    --bg-color-accent: rgb(42, 48, 53);
+    --bg-color-accent: rgb(51, 97, 133);
   }
 }
 
@@ -32,10 +38,9 @@ body {
 }
 
 a {
-  color: lightskyblue;
+  color: var(--text-color-link);
   text-decoration: none;
 }
-
 a:hover {
   text-decoration: underline;
 }
@@ -58,6 +63,7 @@ main {
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0 2rem;
+  padding-bottom: 1em;
 }
 
 ul.breadcrumb,
@@ -87,7 +93,7 @@ td {
 }
 
 blockquote {
-  background-color: var(--bg-color-secondary); 
+  background-color: var(--bg-color-secondary);
   font-style: italic;
   padding: 0.5em;
   border-left: 0.75em solid var(--bg-color-accent);
@@ -108,4 +114,15 @@ code:not(pre code) {
   background-color: var(--bg-color-accent);
   padding: 2px 5px;
   color: var(--text-color-accent);
+  font-weight: bold;
+}
+@media (prefers-color-scheme: light) {
+  code:not(pre code) {
+    background-color: var(--bg-color-accent);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  code:not(pre code) {
+    background-color: var(--bg-color-secondary);
+  }
 }
