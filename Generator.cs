@@ -1,4 +1,4 @@
-﻿using static System.Configuration.ConfigurationManager;
+using static System.Configuration.ConfigurationManager;
 using Markdig;
 using Ganss.XSS;
 using HtmlAgilityPack;
@@ -157,18 +157,6 @@ foreach (var relativePath in inputRelativePaths)
         pathIndex++;
     }
 
-    // Copy stylesheet to output folder
-    var stylesheetDestinationPath = AppSettings["OutputFolder"] + "/" + "style.css";
-    var stylesheetSourcePath = "./template/style.css";
-
-    if (!File.Exists(stylesheetDestinationPath))
-        File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
-    else if (!File.Equals(stylesheetSourcePath, stylesheetDestinationPath))
-    {
-        File.Delete(stylesheetDestinationPath);
-        File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
-    }
-
     // Inject styles and favicon
     var outputRelativePathToRoot = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2));
 
@@ -178,4 +166,35 @@ foreach (var relativePath in inputRelativePaths)
     templateDocument.Save(output.FilePath);
 }
 
-File.Copy("./azure/staticwebapp.config.json", Path.Join(AppSettings["OutputFolder"], "staticwebapp.config.json"));
+// Copy stylesheet to output folder
+
+var stylesheetDestinationPath = AppSettings["OutputFolder"] + "/" + "style.css";
+var stylesheetSourcePath = "./template/style.css";
+
+if (!File.Exists(stylesheetDestinationPath))
+{
+    System.Console.WriteLine("Adding template styles...");
+    File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
+}
+else if (File.ReadAllBytes(stylesheetSourcePath).Length != File.ReadAllBytes(stylesheetDestinationPath).Length)
+{
+    System.Console.WriteLine("Exporting changes to template styles...");
+    File.Delete(stylesheetDestinationPath);
+    File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
+}
+
+// Copy static web apps config to output folder
+var staticWebAppsConfigDestinationPath = AppSettings["OutputFolder"] + "/" + "staticwebapp.config.json";
+var staticWebAppsConfigSourcePath = "./azure/staticwebapp.config.json";
+
+if (!File.Exists(staticWebAppsConfigDestinationPath))
+{
+    System.Console.WriteLine("Adding host config...");
+    File.Copy(staticWebAppsConfigSourcePath, staticWebAppsConfigDestinationPath);
+}
+else if (File.ReadAllBytes(stylesheetSourcePath).Length != File.ReadAllBytes(stylesheetDestinationPath).Length)
+{
+    System.Console.WriteLine("Exporting changes to host config...");
+    File.Delete(staticWebAppsConfigDestinationPath);
+    File.Copy(staticWebAppsConfigSourcePath, staticWebAppsConfigDestinationPath);
+}
