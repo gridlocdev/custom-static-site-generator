@@ -6,8 +6,8 @@
 # Custom project specific settings:
 input/*
 !input/.gitkeep
-output/*
-!output/.gitkeep
+wwwroot/*
+!wwwroot/.gitkeep
 
 # User-specific files
 *.rsuser
