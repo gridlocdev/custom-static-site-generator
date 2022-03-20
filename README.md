@@ -1,6 +1,6 @@
 # Gridlocdev's custom Static Site Generator
 
-A simple and bare-bones Static Site Generator using Markdig, which takes all of the Markdown files in a folder, sanitizes them, and converts them into HTML files  templated with some styling and navigation controls.
+A simple and bare-bones Static Site Generator based on .NET. This generator builds HTML from markdown with sanitization, and applies a presentation template with some styling and navigation controls.
 
 ## Config
 
