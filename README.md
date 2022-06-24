@@ -1,6 +1,6 @@
 # Gridlocdev's custom Static Site Generator
 
-A simple and bare-bones Static Site Generator based on .NET. This generator builds HTML from markdown with sanitization, and applies a presentation template with some styling and navigation controls.
+A simple and barebones Static Site Generator based on .NET and Markdig. This generator builds HTML from markdown with sanitization, and applies a presentation template with some styling and navigation controls.
 
 ## Config
 
