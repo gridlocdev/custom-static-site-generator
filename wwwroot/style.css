@@ -5,6 +5,7 @@
     --text-color-link: rgb(0, 108, 209);
     --bg-color-primary: rgb(255, 255, 255);
     --bg-color-secondary: #eeeeee;
+    --bg-color-tertiary: #aaaaaa;
     --bg-color-accent: rgb(103, 189, 255);
   }
 }
@@ -16,6 +17,8 @@
     --bg-color-primary: #191919;
     --bg-color-secondary: rgb(33, 37, 41);
     --bg-color-accent: rgb(51, 97, 133);
+    --sidebar-link-bg: rgb(60, 67, 74);
+    --bg-color-tertiary: rgb(88, 99, 110);
   }
 }
 
@@ -56,6 +59,19 @@ a:hover {
 .sidebar .sub-header {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.sidebar ul li {
+  padding: 0.5rem 0;
+  border: 1px solid var(--bg-color-tertiary);
+  border-left: none;
+  border-right: none;
+}
+
+.sidebar ul li a {
+  padding-left: 0.5rem;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 main {
