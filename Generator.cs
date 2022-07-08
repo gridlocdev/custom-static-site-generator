@@ -9,12 +9,16 @@ try
     bool valid = true;
     if (!File.GetAttributes(AppSettings["InputFolder"]!).HasFlag(FileAttributes.Directory))
     {
-        System.Console.WriteLine($"The file \"{AppSettings["InputFolder"]}\" isn't a directory! Please revise the app.config file's value for key \"InputFolder\".");
+        System.Console.WriteLine(
+            $"The file \"{AppSettings["InputFolder"]}\" isn't a directory! Please revise the app.config file's value for key \"InputFolder\"."
+        );
         valid = false;
     }
     else if (!File.GetAttributes(AppSettings["OutputFolder"]!).HasFlag(FileAttributes.Directory))
     {
-        System.Console.WriteLine($"The file \"{AppSettings["OutputFolder"]}\" isn't a directory! Please revise the app.config file's value for key \"OutputFolder\".");
+        System.Console.WriteLine(
+            $"The file \"{AppSettings["OutputFolder"]}\" isn't a directory! Please revise the app.config file's value for key \"OutputFolder\"."
+        );
         valid = false;
     }
     if (!valid)
@@ -23,31 +27,41 @@ try
 catch (FileNotFoundException ex)
 {
     string output = Path.HasExtension(ex.FileName)
-    ? $"One of the folder keys in the app.config file is to a direct file! Please modify the key containing the value \"{Path.GetFileName(ex.FileName)}\" to its parent directory or another appropriate directory location."
-    : $"Directory \"{ex.FileName}\" was not found." + ex.Message;
+      ? $"One of the folder keys in the app.config file is to a direct file! Please modify the key containing the value \"{Path.GetFileName(ex.FileName)}\" to its parent directory or another appropriate directory location."
+      : $"Directory \"{ex.FileName}\" was not found." + ex.Message;
 
     System.Console.WriteLine(output);
     Environment.Exit(0);
 }
 catch (ArgumentNullException)
 {
-    System.Console.WriteLine($"One of the key inputs from the app.config file has been modified or removed. Please make sure there are nodes for both keys \"InputFolder\" and \"OutputFolder\"");
+    System.Console.WriteLine(
+        $"One of the key inputs from the app.config file has been modified or removed. Please make sure there are nodes for both keys \"InputFolder\" and \"OutputFolder\""
+    );
     Environment.Exit(0);
 }
 
 // Get a list of the relative paths of all Markdown files in the `input` folder
-var inputRelativePaths = Directory.GetFiles(AppSettings["InputFolder"]!, "*.md", SearchOption.AllDirectories)
-.Select(path => path.Remove(0, AppSettings["InputFolder"]!.Length));
+var inputRelativePaths = Directory
+    .GetFiles(AppSettings["InputFolder"]!, "*.md", SearchOption.AllDirectories)
+    .Select(path => path.Remove(0, AppSettings["InputFolder"]!.Length));
 
 // Clear each HTML file in the output folder each run. Not the most elegant solution, but it works.
 System.Console.WriteLine("Clearing built files from output directory...");
 string pattern = "*.html";
-foreach (string file in Directory.GetFiles(AppSettings["OutputFolder"]!, pattern, SearchOption.AllDirectories))
+foreach (
+    string file in Directory.GetFiles(
+        AppSettings["OutputFolder"]!,
+        pattern,
+        SearchOption.AllDirectories
+    )
+)
     File.Delete(file);
 
 // Configure the Markdown render pipeline with all advanced extensions active
 var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 var sanitizer = new HtmlSanitizer();
+
 // Allow `id` through sanitization to allow for same-document hyperlinks to headers generated with `id` attributes
 sanitizer.AllowedAttributes.Add("id");
 
@@ -62,7 +76,10 @@ foreach (var relativePath in inputRelativePaths)
     };
     var output = new
     {
-        FilePath = Path.Join(AppSettings["OutputFolder"], Path.ChangeExtension(relativePath, ".html")),
+        FilePath = Path.Join(
+            AppSettings["OutputFolder"],
+            Path.ChangeExtension(relativePath, ".html")
+        ),
         Directory = Path.GetDirectoryName(Path.Join(AppSettings["OutputFolder"], relativePath))
     };
 
@@ -82,15 +99,18 @@ foreach (var relativePath in inputRelativePaths)
         {
             string linkValue = link.GetAttributeValue("href", "");
             if (
-                !String.IsNullOrEmpty(linkValue) &&
-                !linkValue.StartsWith("http://") &&
-                !linkValue.StartsWith("https://") &&
-                linkValue.EndsWith(".md")
-                )
+                !String.IsNullOrEmpty(linkValue)
+                && !linkValue.StartsWith("http://")
+                && !linkValue.StartsWith("https://")
+                && linkValue.EndsWith(".md")
+            )
             {
                 string linkElementBeforeExtensionChange = link.OuterHtml;
                 link.SetAttributeValue("href", Path.ChangeExtension(linkValue, ".html"));
-                sanitizedContent = sanitizedContent.Replace(linkElementBeforeExtensionChange, link.OuterHtml);
+                sanitizedContent = sanitizedContent.Replace(
+                    linkElementBeforeExtensionChange,
+                    link.OuterHtml
+                );
             }
         }
     }
@@ -110,14 +130,25 @@ foreach (var relativePath in inputRelativePaths)
     templateDocument.GetElementbyId("ssg-inject-sidebar-subheader").InnerHtml = subheaderTitle;
 
     // Build and inject sidebar navigation links
-    var relativePathFilePaths = Directory.GetFiles(input.Directory!, "*.md", SearchOption.TopDirectoryOnly);
+    var relativePathFilePaths = Directory.GetFiles(
+        input.Directory!,
+        "*.md",
+        SearchOption.TopDirectoryOnly
+    );
     foreach (var file in relativePathFilePaths)
     {
         HtmlNode newSidebarLink;
-        if (Path.GetFileNameWithoutExtension(output.FilePath) == Path.GetFileNameWithoutExtension(file))
-            newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\"><strong>{Path.GetFileNameWithoutExtension(file)}</strong></a></li>");
+        if (
+            Path.GetFileNameWithoutExtension(output.FilePath)
+            == Path.GetFileNameWithoutExtension(file)
+        )
+            newSidebarLink = HtmlNode.CreateNode(
+                $"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\"><strong>{Path.GetFileNameWithoutExtension(file)}</strong></a></li>"
+            );
         else
-            newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\">{Path.GetFileNameWithoutExtension(file)}</a></li>");
+            newSidebarLink = HtmlNode.CreateNode(
+                $"<li><a href=\"./{Path.ChangeExtension(Path.GetFileName(file), ".html")}\">{Path.GetFileNameWithoutExtension(file)}</a></li>"
+            );
 
         templateDocument.GetElementbyId("ssg-inject-sidebar-links").AppendChild(newSidebarLink);
     }
@@ -136,7 +167,9 @@ foreach (var relativePath in inputRelativePaths)
         {
             // Build "Home" link element for the start of the path (empty)
             linkText = "Home";
-            linkHref = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2)) + defaultDocumentFileName;
+            linkHref =
+                String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2))
+                + defaultDocumentFileName;
             newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"{linkHref}\">{linkText}</a></li>");
         }
         else if (Path.HasExtension(splitPathString))
@@ -149,7 +182,9 @@ foreach (var relativePath in inputRelativePaths)
         {
             // Build ending breadcrumb with a link to the previous folder
             linkText = splitPathString;
-            linkHref = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - (pathIndex + 2))) + defaultDocumentFileName;
+            linkHref =
+                String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - (pathIndex + 2)))
+                + defaultDocumentFileName;
             newSidebarLink = HtmlNode.CreateNode($"<li><a href=\"{linkHref}\">{linkText}</a></li>");
         }
 
@@ -158,16 +193,21 @@ foreach (var relativePath in inputRelativePaths)
     }
 
     // Inject styles and favicon
-    var outputRelativePathToRoot = String.Concat(Enumerable.Repeat("../", splitRelativePath.Length - 2));
+    var outputRelativePathToRoot = String.Concat(
+        Enumerable.Repeat("../", splitRelativePath.Length - 2)
+    );
 
-    templateDocument.GetElementbyId("ssg-inject-stylesheet").SetAttributeValue("href", outputRelativePathToRoot + "style.css");
-    templateDocument.GetElementbyId("ssg-inject-favicon").SetAttributeValue("href", outputRelativePathToRoot + "gridlocdev-logo.svg");
+    templateDocument
+        .GetElementbyId("ssg-inject-stylesheet")
+        .SetAttributeValue("href", outputRelativePathToRoot + "style.css");
+    templateDocument
+        .GetElementbyId("ssg-inject-favicon")
+        .SetAttributeValue("href", outputRelativePathToRoot + "gridlocdev-logo.svg");
 
     templateDocument.Save(output.FilePath);
 }
 
 // Copy stylesheet to output folder
-
 var stylesheetDestinationPath = AppSettings["OutputFolder"] + "/" + "style.css";
 var stylesheetSourcePath = "./template/style.css";
 
@@ -176,7 +216,10 @@ if (!File.Exists(stylesheetDestinationPath))
     System.Console.WriteLine("Adding template styles...");
     File.Copy(stylesheetSourcePath, stylesheetDestinationPath);
 }
-else if (File.ReadAllBytes(stylesheetSourcePath).Length != File.ReadAllBytes(stylesheetDestinationPath).Length)
+else if (
+    File.ReadAllBytes(stylesheetSourcePath).Length
+    != File.ReadAllBytes(stylesheetDestinationPath).Length
+)
 {
     System.Console.WriteLine("Exporting changes to template styles...");
     File.Delete(stylesheetDestinationPath);
@@ -184,7 +227,8 @@ else if (File.ReadAllBytes(stylesheetSourcePath).Length != File.ReadAllBytes(sty
 }
 
 // Copy static web apps config to output folder
-var staticWebAppsConfigDestinationPath = AppSettings["OutputFolder"] + "/" + "staticwebapp.config.json";
+var staticWebAppsConfigDestinationPath =
+    AppSettings["OutputFolder"] + "/" + "staticwebapp.config.json";
 var staticWebAppsConfigSourcePath = "./azure/staticwebapp.config.json";
 
 if (!File.Exists(staticWebAppsConfigDestinationPath))
@@ -192,7 +236,10 @@ if (!File.Exists(staticWebAppsConfigDestinationPath))
     System.Console.WriteLine("Adding host config...");
     File.Copy(staticWebAppsConfigSourcePath, staticWebAppsConfigDestinationPath);
 }
-else if (File.ReadAllBytes(stylesheetSourcePath).Length != File.ReadAllBytes(stylesheetDestinationPath).Length)
+else if (
+    File.ReadAllBytes(stylesheetSourcePath).Length
+    != File.ReadAllBytes(stylesheetDestinationPath).Length
+)
 {
     System.Console.WriteLine("Exporting changes to host config...");
     File.Delete(staticWebAppsConfigDestinationPath);
