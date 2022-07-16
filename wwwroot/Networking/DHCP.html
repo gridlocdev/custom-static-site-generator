@@ -36,8 +36,8 @@
 <li><a href="#table-of-contents">Table of Contents</a></li>
 <li><a href="#overview">Overview</a>
 <ul>
-<li><a href="#static-ip-old-way"><em>Static IP</em> [Old way]</a></li>
-<li><a href="#dynamic-ip-modern-way"><em>Dynamic IP</em> [Modern way]</a></li>
+<li><a href="#static-ip"><em>Static IP</em></a></li>
+<li><a href="#dynamic-ip"><em>Dynamic IP</em></a></li>
 </ul>
 </li>
 <li><a href="#wheres-my-dhcp-server">WHERE'S MY DHCP SERVER?</a>
@@ -56,10 +56,11 @@
 <h2 id="overview">Overview</h2>
 <p>DHCP - Dynamic Host Configuration Protocol</p>
 <p>IP addresses are strings of numbers that identify a PC on a network. Because of this, all computers on a network are required to have an IP address. Otherwise, your network controller or switch would have no idea where to send packets to.</p>
-<p>IP can be assigned in two ways: Static and Dynamic.</p>
-<h3 id="static-ip-old-way"><em>Static IP</em> [Old way]</h3>
+<p>IP can be assigned in two ways: <strong>static</strong> and <strong>dynamic</strong>.</p>
+<h3 id="static-ip"><em>Static IP</em></h3>
 <p>Each computer is manually configured to contain an IP address, and is typed in through operating system settings. (This also includes subnet masks, and default gateway)</p>
-<h3 id="dynamic-ip-modern-way"><em>Dynamic IP</em> [Modern way]</h3>
+<p>This is typically used for scenarios where having the IP not change is valuable and makes sure that accessibility is constant, such as a home server or shared network printers.</p>
+<h3 id="dynamic-ip"><em>Dynamic IP</em></h3>
 <p>A computer gets its network identifiers from a separate server, a DHCP (Dynamic Host Configuration Protocol) server. This server configures the host, by generating and assigning that computer the following:</p>
 <ul>
 <li>IP Address</li>
@@ -67,6 +68,7 @@
 <li>Default Gateway</li>
 <li>DNS Server</li>
 </ul>
+<p>Dynamic IP addresses are usually the most convenient and common option for most scenarios, as they allow flexibility with increased configuration.</p>
 <h2 id="wheres-my-dhcp-server">WHERE'S MY DHCP SERVER?</h2>
 <p>Your ISP has one DHCP server somewhere on their network and you have one DHCP server somewhere on your network.</p>
 <p>What and where your local DHCP server is depends on what type of network it you are on.</p>
@@ -77,7 +79,7 @@
 <p>In a business network, often times there are many distributed LANs across floors, buildings, and sites. Because of this, the DHCP service usually runs on a dedicated server; which is usually also the one responsible for DNS.</p>
 <h2 id="assigning-an-initial-ip-to-your-dhcp-server">Assigning an Initial IP to your DHCP Server</h2>
 <p>The ISP assigns an IP to the device you're using to run a local DHCP service. That device is responsible for similar duties to the router defined in <a href="#home-network">Home Network</a>. This can either be a router or a server propped up by your business.</p>
-<p>Then, internal LAN computers contact your local DHCP service device to then be assigned IP addresses inside your private network. The response contains the above list of identifiable attributes in <a href="#dynamic-ip-modern-way">Dynamic IP</a>.</p>
+<p>Then, internal LAN computers contact your local DHCP service device to then be assigned IP addresses inside your private network. The response contains the above list of identifiable attributes in <a href="#dynamic-ip">Dynamic IP</a>.</p>
 <h2 id="dhcp-servers-scope">DHCP Server's "Scope"</h2>
 <p>A DHCP Server has to know how many devices it's allowed to hand IPs to. A scope is a range of IP addresses that a DHCP server is allowed to hand out.</p>
 <ul>

@@ -9,8 +9,8 @@ It's also responsible for implementing both [DOC: Subnets](Subnets.md), and [DOC
 - [What is DHCP](#what-is-dhcp)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
-    - [_Static IP_ [Old way]](#static-ip-old-way)
-    - [_Dynamic IP_ [Modern way]](#dynamic-ip-modern-way)
+    - [_Static IP_](#static-ip)
+    - [_Dynamic IP_](#dynamic-ip)
   - [WHERE'S MY DHCP SERVER?](#wheres-my-dhcp-server)
     - [Home Network](#home-network)
     - [Business Network](#business-network)
@@ -25,13 +25,15 @@ DHCP - Dynamic Host Configuration Protocol
 
 IP addresses are strings of numbers that identify a PC on a network. Because of this, all computers on a network are required to have an IP address. Otherwise, your network controller or switch would have no idea where to send packets to.
 
-IP can be assigned in two ways: Static and Dynamic.
+IP can be assigned in two ways: **static** and **dynamic**.
 
-### _Static IP_ [Old way]
+### _Static IP_
 
 Each computer is manually configured to contain an IP address, and is typed in through operating system settings. (This also includes subnet masks, and default gateway)
 
-### _Dynamic IP_ [Modern way]
+This is typically used for scenarios where having the IP not change is valuable and makes sure that accessibility is constant, such as a home server or shared network printers.
+
+### _Dynamic IP_
 
 A computer gets its network identifiers from a separate server, a DHCP (Dynamic Host Configuration Protocol) server. This server configures the host, by generating and assigning that computer the following:
 
@@ -39,6 +41,8 @@ A computer gets its network identifiers from a separate server, a DHCP (Dynamic 
 - Subnet Mask
 - Default Gateway
 - DNS Server
+
+Dynamic IP addresses are usually the most convenient and common option for most scenarios, as they allow flexibility with increased configuration.
 
 ## WHERE'S MY DHCP SERVER?
 
@@ -60,7 +64,7 @@ In a business network, often times there are many distributed LANs across floors
 
 The ISP assigns an IP to the device you're using to run a local DHCP service. That device is responsible for similar duties to the router defined in [Home Network](#home-network). This can either be a router or a server propped up by your business.
 
-Then, internal LAN computers contact your local DHCP service device to then be assigned IP addresses inside your private network. The response contains the above list of identifiable attributes in [Dynamic IP](#dynamic-ip-modern-way).
+Then, internal LAN computers contact your local DHCP service device to then be assigned IP addresses inside your private network. The response contains the above list of identifiable attributes in [Dynamic IP](#dynamic-ip).
 
 ## DHCP Server's "Scope"
 
