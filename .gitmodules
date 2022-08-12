@@ -1,0 +1,3 @@
+[submodule "notes-on-computers"]
+	path = notes-on-computers
+	url = https://github.com/gridlocdev/notes-on-computers.git
